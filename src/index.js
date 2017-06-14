@@ -36,7 +36,7 @@ export var state = {
 	duration: 200,
 	bgcolor: "#FFFFFF",
 	is_rank: true,
-	use_image:false,
+	use_image:true,
 	curve: "curveLinear",
 	label_ranks: "Ranks",
 	label_scores: "Scores",
@@ -276,6 +276,7 @@ export function update() {
 			.attr('y',-((state.end_circle_r * 2)-2) / 2)
 			.attr('x',-((state.end_circle_r * 2)-2) / 2)
 			.attr('clip-path','url(#circleClip)')
+			.attr('preserveAspectRatio','xMidYMid slice')
 	}else{
 		labels_update.select("image").style("display","none")
 	}
