@@ -249,9 +249,10 @@ export function update() {
 	end_circle.append("image");
 	end_circle.append("text").attr("class", "rank-number")
 		.attr("alignment-baseline", "central").attr("fill", "white")
+		.attr("dominant-baseline","central")
 		.attr("text-anchor", "middle");
 	labels_enter.append("rect").attr("class","name-background");
-	labels_enter.append("text").attr("class", "name").attr("alignment-baseline", "central");
+	labels_enter.append("text").attr("class", "name").attr("alignment-baseline", "central").attr("dominant-baseline","central");
 	var labels_update = labels.merge(labels_enter).attr("fill", color).attr("opacity", horseOpacity);
 	labels_update
 		.transition()
