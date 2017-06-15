@@ -114,7 +114,7 @@ export function update() {
 
 	function color(d, i) { return colors[i % colors.length]; }
 
-	var xAxis = axisTop(x).tickFormat(function(d) { return data.horserace.column_names.times[d] ? data.horserace.column_names.times[d] : "oi"; });
+	var xAxis = axisTop(x).tickFormat(function(d) { return data.horserace.column_names.times[d] ? data.horserace.column_names.times[d] : ""; });
 
 	$(".x.axis").call(xAxis)
 		.selectAll(".tick")
@@ -130,14 +130,20 @@ export function update() {
 				.attr('opacity',0.1)
 				.attr('height',65)
 				.attr('width',function() {
-					return this.parentElement.getBoundingClientRect().width
+					if(this.parentElement){
+						return this.parentElement.getBoundingClientRect().width
+					}else{
+						return 0
+					}
 				})
 
 			tick.insert("rect", "text")
 				.attr('class','text-outline')
 				.attr('height','20px')
 				.attr('width',function(d) {
-					return this.parentElement.querySelector('text').getComputedTextLength() + 10
+					if(this.parentElement){
+						return this.parentElement.querySelector('text').getComputedTextLength() + 10
+					}
 				})
 				.attr('y','-32px')
 				.attr('x','21px')
@@ -188,7 +194,6 @@ export function update() {
 		}else{
 			d.ranks = d.times;
 		}
-		console.log("d.ranks", d.ranks);
 		return d;
 	});
 
@@ -293,7 +298,7 @@ export function update() {
 		.text(function(d) { return d.name; });
 	labels_update.select(".name-background")
 		.attr("fill",state.bgcolor)
-		.attr("width",function() { return this.parentElement.querySelector('.name').getComputedTextLength() + 4; })
+		.attr("width",function() { if(this.parentElement){return this.parentElement.querySelector('.name').getComputedTextLength() + 4; }})
 		.attr("height",state.label_font_size)
 		.attr("x", state.end_circle_r)
 		.attr("y", -state.label_font_size/2);
