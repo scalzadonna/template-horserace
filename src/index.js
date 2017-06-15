@@ -1,6 +1,6 @@
 import { select as $, selectAll as $$ } from "d3-selection";
 import { scaleLinear, schemeCategory20c, schemeCategory20b, schemeCategory20, schemeCategory10 } from "d3-scale";
-import { min, max } from "d3-array";
+import { ascending, min, max } from "d3-array";
 import { axisLeft, axisTop } from "d3-axis";
 import * as shape from "d3-shape";
 import "d3-transition";
@@ -82,8 +82,8 @@ export function update() {
 		})
 
 		race.sort(function(a,b){
-			return a.time > b.time
-		})
+			return ascending(a.time, b.time);
+		});
 
 		races.push(race)
 	})
@@ -188,6 +188,7 @@ export function update() {
 		}else{
 			d.ranks = d.times;
 		}
+		console.log("d.ranks", d.ranks);
 		return d;
 	});
 
