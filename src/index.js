@@ -60,53 +60,45 @@ export function update() {
 	w = window.innerWidth - state.margin_left - state.margin_right;
 	h = window.innerHeight - state.margin_top - state.margin_bottom;
 
-	x = scaleLinear().range([0, w]).domain([0,data.horserace.column_names.times.length - 1]);
+	x = scaleLinear().range([0, w]).domain([0, data.horserace.column_names.times.length - 1]);
 	y = scaleLinear().range([h, 0]).domain([
 		max(data.horserace, function(d) { return max(d.times, function(v) { return +v; }); }),
 		min(data.horserace, function(d) { return min(d.times, function(v) { return +v; }); })
 	]);
 
-	if(state.flip_y){
-		y.range([0,h])
-	}
+	if (state.flip_y) y.range([0, h]);
 
 	var races = [];
-	data.horserace.column_names.times.forEach(function(stage,i){
+	data.horserace.column_names.times.forEach(function(stage, i) {
 		var race = [];
 
-		data.horserace.forEach(function(horse){
+		data.horserace.forEach(function(horse) {
 			race.push({
 				name: horse.name,
 				time: Number(horse.times[i])
 			});
 		})
 
-		race.sort(function(a,b){
+		race.sort(function(a, b) {
 			return ascending(a.time, b.time);
 		});
 
 		races.push(race)
 	})
 
-	if(state.is_rank) {
-		y.domain([data.horserace.length,1])
-	}
+	if (state.is_rank) y.domain([data.horserace.length, 1]);
 
 	line.curve(shape[state.curve]);
 
-	$('.highlight-line line').attr('y2',h)
+	$(".highlight-line line").attr("y2", h);
 
 	$("#clip rect")
 		.attr("transform", "translate(0,-" + state.margin_top + ")")
 		.attr("height", h + state.margin_top + state.margin_bottom)
 		.attr("width", x(current_position));
 
-	$$("#rank-toggle button").classed("selected",function(){
-		if(this.innerText === state.label_ranks && state.is_rank) {
-			return true
-		}else if(this.innerText === state.label_scores && !state.is_rank) {
-			return true
-		}
+	$$("#rank-toggle button").classed("selected", function() {
+		return this.innerText === (state.is_rank ? state.label_ranks : state.label_scores);
 	});
 
 	var colors = palettes[state.palette];
@@ -114,7 +106,9 @@ export function update() {
 
 	function color(d, i) { return colors[i % colors.length]; }
 
-	var xAxis = axisTop(x).tickFormat(function(d) { return data.horserace.column_names.times[d] ? data.horserace.column_names.times[d] : ""; });
+	var xAxis = axisTop(x).tickFormat(function(d) {
+		return data.horserace.column_names.times[d] || "";
+	});
 
 	$(".x.axis").call(xAxis)
 		.selectAll(".tick")
@@ -123,77 +117,76 @@ export function update() {
 			tick.selectAll("rect").remove();
 
 			tick.insert("rect", "text")
-				.attr("class","text-hitarea")
-				.attr('y',-65)
-				.attr('x',0)
-				.attr('fill',state.bgcolor)
-				.attr('opacity',0.1)
-				.attr('height',65)
-				.attr('width',function() {
-					if(this.parentElement){
-						return this.parentElement.getBoundingClientRect().width
-					}else{
-						return 0
+				.attr("class", "text-hitarea")
+				.attr("y", -65)
+				.attr("x", 0)
+				.attr("fill", state.bgcolor)
+				.attr("opacity", 0.1)
+				.attr("height", 65)
+				.attr("width", function() {
+					if (this.parentElement) {
+						return this.parentElement.getBoundingClientRect().width;
 					}
-				})
+					else return 0;
+				});
 
 			tick.insert("rect", "text")
-				.attr('class','text-outline')
-				.attr('height','20px')
-				.attr('width',function(d) {
-					if(this.parentElement){
-						return this.parentElement.querySelector('text').getComputedTextLength() + 10
+				.attr("class", "text-outline")
+				.attr("height", "20px")
+				.attr("width", function(d) {
+					if (this.parentElement) {
+						return this.parentElement.querySelector("text").getComputedTextLength() + 10;
 					}
+					else return 0;
 				})
-				.attr('y','-32px')
-				.attr('x','21px')
-				.attr('transform','rotate(-45)')
-				.attr('rx','10px')
-				.attr('stroke','#ccc')
-				.attr('stroke-width','2px')
-				.style('display',function(d) {
-					if(state.highlight !== d) {
-						return 'none'
+				.attr("y", "-32px")
+				.attr("x", "21px")
+				.attr("transform", "rotate(-45)")
+				.attr("rx", "10px")
+				.attr("stroke", "#ccc")
+				.attr("stroke-width", "2px")
+				.style("display", function(d) {
+					if (state.highlight !== d) {
+						return "none";
 					}
 				})
 		})
-		.on('mouseenter',function(d) {
-			$(this).select('.text-outline').style('display','inherit');
+		.on("mouseenter", function(d) {
+			$(this).select(".text-outline").style("display", "inherit");
 			state.highlight = d;
 
-			$('.highlight-line')
-				.style('display','inherit')
-				.attr('transform','translate(' + x(d) + ',0)')
+			$(".highlight-line")
+				.style("display", "inherit")
+				.attr("transform", "translate(" + x(d) + ",0)");
 		})
-		.on('mouseleave',function() {
+		.on("mouseleave", function() {
 			state.highlight = null;
-			$(this).select('.text-outline').style('display','none');
-			$('.highlight-line').style('display','none')
+			$(this).select(".text-outline").style("display", "none");
+			$(".highlight-line").style("display", "none");
 		})
-		.on('click',function(d) {
+		.on("click", function(d) {
 			state.target_position = d;
 			update();
 		})
 		.selectAll("text")
-		.style("text-anchor","start")
+		.style("text-anchor", "start")
 		.attr("dx", "2.3em")
 		.attr("dy", "-0.9em")
 		.attr("transform", "rotate(-45)");
 
 	var yAxis = axisLeft(y).tickSize(-w).tickPadding(10);
-	if(state.is_rank) {
-		yAxis.ticks(data.horserace.length)
+	if (state.is_rank) {
+		yAxis.ticks(data.horserace.length);
 	}
 	$(".y.axis").call(yAxis);
 
 	var horses = data.horserace.map(function(d) {
-		if(state.is_rank) {
-			d.ranks = d.times.map(function(time,i){
-				return races[i].map(function(x) { return x.name }).indexOf(d.name) + 1
+		if (state.is_rank) {
+			d.ranks = d.times.map(function(time, i) {
+				return races[i].map(function(x) { return x.name }).indexOf(d.name) + 1;
 			})
-		}else{
-			d.ranks = d.times;
 		}
+		else d.ranks = d.times;
 		return d;
 	});
 
@@ -248,16 +241,16 @@ export function update() {
 
 	var labels = g_labels.selectAll(".labels-group").data(horses);
 	var labels_enter = labels.enter().append("g").attr("class", "horse labels-group")
-		.on("mouseover", mouseover).on("mouseout",mouseout).on("click", clickHorse);
-	var end_circle = labels_enter.append("g").attr("class","end-circle-container");
+		.on("mouseover", mouseover).on("mouseout", mouseout).on("click", clickHorse);
+	var end_circle = labels_enter.append("g").attr("class", "end-circle-container");
 	end_circle.append("circle").attr("class", "end circle");
 	end_circle.append("image");
 	end_circle.append("text").attr("class", "rank-number")
 		.attr("alignment-baseline", "central").attr("fill", "white")
-		.attr("dominant-baseline","central")
+		.attr("dominant-baseline", "central")
 		.attr("text-anchor", "middle");
-	labels_enter.append("rect").attr("class","name-background");
-	labels_enter.append("text").attr("class", "name").attr("alignment-baseline", "central").attr("dominant-baseline","central");
+	labels_enter.append("rect").attr("class", "name-background");
+	labels_enter.append("text").attr("class", "name").attr("alignment-baseline", "central").attr("dominant-baseline", "central");
 	var labels_update = labels.merge(labels_enter).attr("fill", color).attr("opacity", horseOpacity);
 	labels_update
 		.transition()
@@ -267,25 +260,26 @@ export function update() {
 		.attr("transform", function(d) {
 			return "translate(" + x(current_position) + "," + y(d.ranks[Math.floor(current_position)]) + ")";
 		});
-	labels_update.select(".end-circle-container").attr("transform",null);
+	labels_update.select(".end-circle-container").attr("transform", null);
 	labels_update.select(".end.circle").attr("r", state.end_circle_r).attr("fill", color);
 
-	if(state.use_image) {
+	if (state.use_image) {
 		plot.select("#circleClip circle").attr("r", state.end_circle_r - 2);
 
 		labels_update.select("image")
-			.attr('xlink:href',function(d) {
-				return d.pic
+			.attr("xlink:href", function(d) {
+				return d.pic;
 			})
-			.style("display","inherit")
-			.attr('height',(state.end_circle_r * 2) - 2)
-			.attr('width',(state.end_circle_r * 2) - 2)
-			.attr('y',-((state.end_circle_r * 2)-2) / 2)
-			.attr('x',-((state.end_circle_r * 2)-2) / 2)
-			.attr('clip-path','url(#circleClip)')
-			.attr('preserveAspectRatio','xMidYMid slice')
-	}else{
-		labels_update.select("image").style("display","none")
+			.style("display", "inherit")
+			.attr("height", (state.end_circle_r * 2) - 2)
+			.attr("width", (state.end_circle_r * 2) - 2)
+			.attr("y", -((state.end_circle_r * 2)-2) / 2)
+			.attr("x", -((state.end_circle_r * 2)-2) / 2)
+			.attr("clip-path", "url(#circleClip)")
+			.attr("preserveAspectRatio", "xMidYMid slice")
+	}
+	else {
+		labels_update.select("image").style("display", "none")
 	}
 
 	labels_update.select(".rank-number")
@@ -297,9 +291,11 @@ export function update() {
 		.attr("y", 0)
 		.text(function(d) { return d.name; });
 	labels_update.select(".name-background")
-		.attr("fill",state.bgcolor)
-		.attr("width",function() { if(this.parentElement){return this.parentElement.querySelector('.name').getComputedTextLength() + 4; }})
-		.attr("height",state.label_font_size)
+		.attr("fill", state.bgcolor)
+		.attr("width", function() {
+			return this.parentElement && this.parentElement.querySelector(".name").getComputedTextLength() + 4;
+		})
+		.attr("height", state.label_font_size)
 		.attr("x", state.end_circle_r)
 		.attr("y", -state.label_font_size/2);
 	labels.exit().remove();
@@ -352,12 +348,12 @@ function createDom() {
 	plot.append("g").attr("class", "x axis");
 	plot.append("g").attr("class", "y axis");
 
-	plot.append("g").attr("class","highlight-line")
-		.style("display","none")
+	plot.append("g").attr("class", "highlight-line")
+		.style("display", "none")
 		.append("line")
-		.attr('stroke','#ccc')
-		.attr('stroke-width','2px')
-		.attr('x1',0.5).attr('x2',0.5).attr('y1',-30).attr('y2',400)
+		.attr("stroke", "#ccc")
+		.attr("stroke-width", "2px")
+		.attr("x1", 0.5).attr("x2", 0.5).attr("y1", -30).attr("y2", 400)
 
 	g_lines = plot.append("g").attr("class", "g-lines");
 	g_start_circles = plot.append("g").attr("class", "g-start-circles");
@@ -371,12 +367,8 @@ function createDom() {
 		state.is_rank = this.innerText === state.label_ranks;
 		update();
 	})
-	.classed("selected",function(){
-		if(this.innerText === state.label_ranks && state.is_rank) {
-			return true
-		}else if(this.innerText === state.label_scores && !state.is_rank) {
-			return true
-		}
+	.classed("selected", function() {
+		return this.innerText === (state.is_rank ? state.label_ranks : state.label_scores);
 	});
 }
 
@@ -398,26 +390,26 @@ function tieBreak() {
 		if (!(rank in labels_by_rank)) labels_by_rank[rank] = [this];
 		else labels_by_rank[rank].push(this);
 	});
+
 	for (var rank in labels_by_rank) {
 		var labels = labels_by_rank[rank];
-		var labelStep = state.label_font_size * 1.2
+		var label_step = state.label_font_size * 1.2;
 		if (labels.length > 1) {
 			for (var i = 0; i < labels.length; i++) {
 				var shift = state.end_circle_r * 0.5 * (i - 1/2);
 				$(labels[i]).select(".end-circle-container")
-					.attr("transform","translate(" + shift + ",0)")
+					.attr("transform", "translate(" + shift + ",0)");
 
 				$(labels[i]).select(".name-background")
-					.attr('x',state.end_circle_r * 0.75 * (labels.length - 0.5))
-					.attr('y',(labelStep * i) - (state.label_font_size/2))
+					.attr("x", state.end_circle_r * 0.75 * (labels.length - 0.5))
+					.attr("y", (label_step * i) - (state.label_font_size/2));
 
 				$(labels[i]).select(".name")
-					.attr('x',state.end_circle_r * 0.75 * (labels.length - 0.5) + 4)
-					.attr('y',(labelStep * i) - (((labels.length - 1) * labelStep)/2))
+					.attr("x", state.end_circle_r * 0.75 * (labels.length - 0.5) + 4)
+					.attr("y", (label_step * i) - (((labels.length - 1) * label_step)/2));
 
 				labels[i].dataset.shift = shift;
 			}
-
 		}
 	}
 }
@@ -452,7 +444,6 @@ function frame(t) {
 
 	var reached_target;
 	if (target_is_ahead) {
-
 		current_position += (t - prev_timestamp) / state.duration;
 		reached_target = (current_position > target_position);
 	}
