@@ -13,7 +13,7 @@ var line = shape.line()
 
 export var data = {};
 
-var old_state = {_init:true};
+var was_rank = false;
 export var state = {
 	margin_top: 100,
 	margin_right: 120,
@@ -202,12 +202,11 @@ export function update() {
 		.attr("clip-path", "url(#clip)")
 		.attr("fill", "none");
 	var lines_update = lines.merge(lines_enter).attr("opacity", horseOpacity);
+	var duration = (state.is_rank != was_rank) ? 1000 : 0;
 	lines_update
 		.select(".line")
 		.transition()
-		.duration(function(){
-			return hasChanged("is_rank") ? 1000 : 0
-		})
+		.duration(duration)
 		.attr("d", function(d) { return line(d.ranks); })
 		.attr("stroke", color)
 		.attr("opacity", state.line_opacity)
@@ -215,9 +214,7 @@ export function update() {
 	lines_update
 		.select(".shade")
 		.transition()
-		.duration(function(){
-			return hasChanged("is_rank") ? 1000 : 0
-		})
+		.duration(duration)
 		.attr("d", function(d) { return line(d.ranks); })
 		.attr("stroke", color)
 		.attr("display", state.shade ? "block" : "none")
@@ -230,9 +227,7 @@ export function update() {
 		.attr("cx", 0);
 	start_circles.merge(start_circles_enter)
 		.transition()
-		.duration(function(){
-			return hasChanged("is_rank") ? 1000 : 0
-		})
+		.duration(duration)
 		.attr("cy", function(d) { return y(d.ranks[0]); })
 		.attr("opacity", horseOpacity)
 		.attr("r", state.start_circle_r)
@@ -254,9 +249,7 @@ export function update() {
 	var labels_update = labels.merge(labels_enter).attr("fill", color).attr("opacity", horseOpacity);
 	labels_update
 		.transition()
-		.duration(function(){
-			return hasChanged("is_rank") ? 1000 : 0
-		})
+		.duration(duration)
 		.attr("transform", function(d) {
 			return "translate(" + x(current_position) + "," + y(d.ranks[Math.floor(current_position)]) + ")";
 		});
@@ -303,7 +296,7 @@ export function update() {
 	if (current_position != getTargetPosition()) play();
 	else tieBreak();
 
-	old_state = JSON.parse(JSON.stringify(state));
+	was_rank = state.is_rank;
 }
 
 function mouseover(d, i) {
@@ -474,12 +467,4 @@ function play() {
 	prev_timestamp = null;
 	if (af) cancelAnimationFrame(af);
 	af = requestAnimationFrame(frame);
-}
-
-function hasChanged(property){
-	if(!old_state._init){
-		return state[property] !== old_state[property];
-	}else{
-		return false
-	}
 }
