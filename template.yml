@@ -47,7 +47,7 @@ settings:
     description: Choose from [[curveLinear]], [[curveMonotoneX]], [[curveMonotoneY]], [[curveNatural]], [[curveStep]], [[curveStepAfter]] or [[curveStepBefore]]
     type: string
 
-  - Cirles and labels
+  - Circles and labels
   - property: start_circle_r
     name: Start circle radius
     type: number
