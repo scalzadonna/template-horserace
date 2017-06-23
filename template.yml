@@ -23,6 +23,7 @@ settings:
   - property: target_position
     name: Starting position
     type: number
+    min: 1
   - property: flip_y
     name: Flip y-axis
     type: boolean
@@ -119,4 +120,4 @@ data:
     dataset: horserace
     key: times
     type: columns
-    columns: "Data::C-K"
+    columns: "Data::C-E"

@@ -13,7 +13,7 @@ var line = shape.line()
 
 export var data = {};
 
-var was_rank = false;
+var was_rank = null;
 export var state = {
 	margin_top: 100,
 	margin_right: 120,
@@ -32,7 +32,7 @@ export var state = {
 	timeslice: 0,
 	selected_horse: null,
 	mouseover_horse: null,
-	target_position: 7,
+	target_position: 10,
 	duration: 200,
 	bgcolor: "#FFFFFF",
 	is_rank: true,
@@ -53,6 +53,8 @@ var palettes = {
 };
 
 export function update() {
+	if(data.horserace.length < 1){ return };
+
 	svg.attr("width", window.innerWidth).attr("height", window.innerHeight);
 	svg.style("background-color", state.bgcolor);
 	plot.attr("transform", "translate(" + state.margin_left + "," + state.margin_top + ")");
@@ -164,8 +166,8 @@ export function update() {
 			$(this).select(".text-outline").style("display", "none");
 			$(".highlight-line").style("display", "none");
 		})
-		.on("click", function(d) {
-			state.target_position = d;
+		.on('click',function(d) {
+			state.target_position = d + 1;
 			update();
 		})
 		.selectAll("text")
@@ -202,7 +204,7 @@ export function update() {
 		.attr("clip-path", "url(#clip)")
 		.attr("fill", "none");
 	var lines_update = lines.merge(lines_enter).attr("opacity", horseOpacity);
-	var duration = (state.is_rank != was_rank) ? 1000 : 0;
+	var duration = (state.is_rank != was_rank && was_rank !== null) ? 1000 : 0;
 	lines_update
 		.select(".line")
 		.transition()
@@ -417,8 +419,10 @@ function getRank(d, p) {
 function getTargetPosition() {
 	if (typeof state.target_position === "undefined") {
 		return data.horserace.length - 1;
+	}else if(state.target_position > data.horserace[0].times.length){
+		state.target_position = data.horserace[0].times.length;
 	}
-	return state.target_position;
+	return state.target_position - 1;
 }
 
 var prev_timestamp,
@@ -427,6 +431,8 @@ var prev_timestamp,
 
 function frame(t) {
 	var target_position = getTargetPosition();
+
+	console.log(target_position)
 
 	if (!prev_timestamp) {
 		prev_timestamp = t;
