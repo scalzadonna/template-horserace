@@ -40,7 +40,8 @@ export var state = {
 	curve: "curveMonotoneX",
 	label_ranks: "Ranks",
 	label_scores: "Scores",
-	flip_y: true
+	flip_y: true,
+	flip_rank: true
 };
 
 var current_position = 0;
@@ -185,8 +186,14 @@ export function update() {
 	var horses = data.horserace.map(function(d) {
 		if (state.is_rank) {
 			d.ranks = d.times.map(function(time, i) {
-				return races[i].map(function(x) { return x.name }).indexOf(d.name) + 1;
+				if(state.flip_rank){
+					return races[i].length - races[i].map(function(x) { return x.name }).indexOf(d.name);
+				}else{
+					return races[i].map(function(x) { return x.name }).indexOf(d.name) + 1;
+				}
+				
 			})
+			console.log(d.ranks)
 		}
 		else d.ranks = d.times;
 		return d;

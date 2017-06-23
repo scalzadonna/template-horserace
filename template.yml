@@ -27,6 +27,9 @@ settings:
   - property: flip_y
     name: Flip y-axis
     type: boolean
+  - property: flip_rank
+    name: Flip ranks
+    type: boolean
   - Lines
   - property: line_width
     name: Line width
