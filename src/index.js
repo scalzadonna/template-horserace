@@ -193,7 +193,6 @@ export function update() {
 				}
 				
 			})
-			console.log(d.ranks)
 		}
 		else d.ranks = d.times;
 		return d;
@@ -438,8 +437,6 @@ var prev_timestamp,
 
 function frame(t) {
 	var target_position = getTargetPosition();
-
-	console.log(target_position)
 
 	if (!prev_timestamp) {
 		prev_timestamp = t;
