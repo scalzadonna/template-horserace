@@ -1,6 +1,6 @@
 import { select as $, selectAll as $$ } from "d3-selection";
 import { scaleLinear, schemeCategory20c, schemeCategory20b, schemeCategory20, schemeCategory10 } from "d3-scale";
-import { ascending, min, max } from "d3-array";
+import { ascending, descending, min, max } from "d3-array";
 import { axisLeft, axisTop } from "d3-axis";
 import * as shape from "d3-shape";
 import "d3-transition";
@@ -8,8 +8,8 @@ import "d3-transition";
 var svg, plot, g_lines, g_labels, g_start_circles, h, w, x, y;
 
 var line = shape.line()
-	.x(function(d, i) { return x(i); })
-	.y(function(d) { return y(d); })
+	.x(function(d, i) { return x(d.i);  })
+	.y(function(d) { return y(d.value); })
 
 export var data = {};
 
@@ -40,8 +40,7 @@ export var state = {
 	curve: "curveMonotoneX",
 	label_ranks: "Ranks",
 	label_scores: "Scores",
-	flip_y: true,
-	flip_rank: true
+	flip_rank: false
 };
 
 var current_position = 0;
@@ -69,27 +68,32 @@ export function update() {
 		min(data.horserace, function(d) { return min(d.times, function(v) { return +v; }); })
 	]);
 
-	if (state.flip_y) y.range([0, h]);
-
 	var races = [];
 	data.horserace.column_names.times.forEach(function(stage, i) {
 		var race = [];
 
 		data.horserace.forEach(function(horse) {
-			race.push({
-				name: horse.name,
-				time: Number(horse.times[i])
-			});
+			if(horse.times[i].length > 0){
+				race.push({
+					name: horse.name,
+					time: Number(horse.times[i])
+				});
+			}
 		})
 
 		race.sort(function(a, b) {
-			return ascending(a.time, b.time);
+			if(!state.flip_rank){
+				return ascending(a.time, b.time);
+			}else{
+				return descending(a.time, b.time);
+			}
 		});
 
 		races.push(race)
 	})
 
 	if (state.is_rank) y.domain([data.horserace.length, 1]);
+	if (!state.is_rank && state.flip_rank) y.range([0,h]);
 
 	line.curve(shape[state.curve]);
 
@@ -186,15 +190,24 @@ export function update() {
 	var horses = data.horserace.map(function(d) {
 		if (state.is_rank) {
 			d.ranks = d.times.map(function(time, i) {
-				if(state.flip_rank){
-					return races[i].length - races[i].map(function(x) { return x.name }).indexOf(d.name);
-				}else{
-					return races[i].map(function(x) { return x.name }).indexOf(d.name) + 1;
-				}
-				
+				return races[i].map(function(x) { return x.name }).indexOf(d.name) + 1
 			})
+<<<<<<< HEAD
+=======
+		}else{
+			d.ranks = d.times;
+>>>>>>> simplified axis flipping and added support for lines appearing later. fixes #11
 		}
-		else d.ranks = d.times;
+
+		d.line = d.times.map(function(time,i){
+			if(time.length > 0){
+				return {
+					"i": i,
+					"value": !state.is_rank ? time : races[i].map(function(x) { return x.name }).indexOf(d.name) + 1 
+				}
+			}
+		}).filter(function(d){ return d })
+
 		return d;
 	});
 
@@ -210,12 +223,12 @@ export function update() {
 		.attr("clip-path", "url(#clip)")
 		.attr("fill", "none");
 	var lines_update = lines.merge(lines_enter).attr("opacity", horseOpacity);
-	var duration = (state.is_rank != was_rank && was_rank !== null) ? 1000 : 0;
+	var duration = (was_rank !== null) ? 1000 : 0;
 	lines_update
 		.select(".line")
 		.transition()
 		.duration(duration)
-		.attr("d", function(d) { return line(d.ranks); })
+		.attr("d", function(d) { return line(d.line); })
 		.attr("stroke", color)
 		.attr("opacity", state.line_opacity)
 		.attr("stroke-width", state.line_width);
@@ -223,7 +236,7 @@ export function update() {
 		.select(".shade")
 		.transition()
 		.duration(duration)
-		.attr("d", function(d) { return line(d.ranks); })
+		.attr("d", function(d) { return line(d.line); })
 		.attr("stroke", color)
 		.attr("display", state.shade ? "block" : "none")
 		.attr("opacity", state.shade_opacity)
@@ -231,14 +244,16 @@ export function update() {
 	lines.exit().remove();
 
 	var start_circles = g_start_circles.selectAll(".start-circle").data(horses);
-	var start_circles_enter = start_circles.enter().append("circle").attr("class", "horse start-circle")
-		.attr("cx", 0);
+	var start_circles_enter = start_circles.enter().append("circle").attr("class", "horse start-circle");
 	start_circles.merge(start_circles_enter)
 		.transition()
 		.duration(duration)
-		.attr("cy", function(d) { return y(d.ranks[0]); })
+		.attr("cy", function(d) { return y(d.line[0].value); })
+		.attr("cx", function(d) {return x(d.line[0].i)})
 		.attr("opacity", horseOpacity)
-		.attr("r", state.start_circle_r)
+		.attr("r", function(d){
+			return state.target_position > d.line[0].i ? state.start_circle_r : 0
+		})
 		.attr("fill", color);
 	start_circles.exit().remove();
 
@@ -259,7 +274,9 @@ export function update() {
 		.transition()
 		.duration(duration)
 		.attr("transform", function(d) {
-			return "translate(" + x(current_position) + "," + y(d.ranks[Math.floor(current_position)]) + ")";
+			var scale = current_position < d.line[0].i ? 0 : 1
+			return "translate(" + x(current_position) + "," + y(getRank(d, current_position)) + ") scale(" + scale + ")";
+			// return "translate(" + x(current_position) + "," + y(d.ranks[Math.floor(current_position)]) + ")";
 		});
 	labels_update.select(".end-circle-container").attr("transform", null);
 	labels_update.select(".end.circle").attr("r", state.end_circle_r).attr("fill", color);
@@ -417,9 +434,9 @@ function tieBreak() {
 
 function getRank(d, p) {
 	var floor_p = Math.floor(p);
-	if (p == floor_p) return d.ranks[p];
+	if (p == floor_p) return d.ranks[p] ;
 	var frac_p = p - floor_p;
-	return (1 - frac_p) * d.ranks[floor_p] + frac_p * d.ranks[floor_p + 1];
+	return (1 - frac_p) * d.ranks[floor_p]  + frac_p * d.ranks[floor_p + 1] ;
 }
 
 function getTargetPosition() {
@@ -459,7 +476,8 @@ function frame(t) {
 	$("#clip rect").attr("width", x(current_position));
 	$$(".labels-group")
 		.attr("transform", function(d) {
-			return "translate(" + x(current_position) + "," + y(getRank(d, current_position)) + ")";
+			var scale = current_position < d.line[0].i ? 0 : 1
+			return "translate(" + x(current_position) + "," + y(getRank(d, current_position)) + ") scale(" + scale + ")";
 		})
 		.select(".rank-number").text(function(d) { return d.ranks[Math.floor(current_position)]; });
 

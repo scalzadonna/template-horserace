@@ -24,11 +24,9 @@ settings:
     name: Starting position
     type: number
     min: 1
-  - property: flip_y
-    name: Flip y-axis
-    type: boolean
   - property: flip_rank
-    name: Flip ranks
+    name: Higher scores win
+    description: Uncheck this if lower scores beat higher scores (eg. race times)
     type: boolean
   - Lines
   - property: line_width
@@ -123,4 +121,4 @@ data:
     dataset: horserace
     key: times
     type: columns
-    columns: "Data::C-E"
+    columns: "Data::C-G"
