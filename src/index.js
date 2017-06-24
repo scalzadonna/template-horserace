@@ -40,7 +40,7 @@ export var state = {
 	curve: "curveLinear",
 	label_ranks: "Ranks",
 	label_scores: "Scores",
-	flip_rank: false
+	higher_scores_win: false
 };
 
 var current_position = 0;
@@ -62,38 +62,34 @@ export function update() {
 	w = window.innerWidth - state.margin_left - state.margin_right;
 	h = window.innerHeight - state.margin_top - state.margin_bottom;
 
+
 	x = scaleLinear().range([0, w]).domain([0, data.horserace.column_names.times.length - 1]);
-	y = scaleLinear().range([h, 0]).domain([
+
+	var y_range = !state.is_rank && state.higher_scores_win ? [0, h] : [h, 0];
+	var y_domain = [data.horserace.length, 1];
+	if (!state.is_rank) y_domain = [
 		max(data.horserace, function(d) { return max(d.times, function(v) { return +v; }); }),
 		min(data.horserace, function(d) { return min(d.times, function(v) { return +v; }); })
-	]);
+	];
+	y = scaleLinear().range(y_range).domain(y_domain);
 
 	var races = [];
 	data.horserace.column_names.times.forEach(function(stage, i) {
 		var race = [];
-
 		data.horserace.forEach(function(horse) {
-			if(horse.times[i].length > 0){
+			if (horse.times[i].length > 0) {
 				race.push({
 					name: horse.name,
 					time: Number(horse.times[i])
 				});
 			}
 		})
-
 		race.sort(function(a, b) {
-			if(!state.flip_rank){
-				return ascending(a.time, b.time);
-			}else{
-				return descending(a.time, b.time);
-			}
+			if (!state.higher_scores_win) return ascending(a.time, b.time);
+			else return descending(a.time, b.time);
 		});
-
 		races.push(race)
 	})
-
-	if (state.is_rank) y.domain([data.horserace.length, 1]);
-	if (!state.is_rank && state.flip_rank) y.range([0,h]);
 
 	line.curve(shape[state.curve]);
 
@@ -190,23 +186,19 @@ export function update() {
 	var horses = data.horserace.map(function(d) {
 		if (state.is_rank) {
 			d.ranks = d.times.map(function(time, i) {
-				return races[i].map(function(x) { return x.name }).indexOf(d.name) + 1
-			})
-<<<<<<< HEAD
-=======
-		}else{
-			d.ranks = d.times;
->>>>>>> simplified axis flipping and added support for lines appearing later. fixes #11
+				return races[i].map(function(x) { return x.name }).indexOf(d.name) + 1;
+			});
 		}
+		else d.ranks = d.times;
 
-		d.line = d.times.map(function(time,i){
-			if(time.length > 0){
+		d.line = d.times.map(function(time,i) {
+			if (time.length > 0) {
 				return {
 					"i": i,
-					"value": !state.is_rank ? time : races[i].map(function(x) { return x.name }).indexOf(d.name) + 1 
+					"value": !state.is_rank ? time : races[i].map(function(x) { return x.name }).indexOf(d.name) + 1
 				}
 			}
-		}).filter(function(d){ return d })
+		}).filter(function(d){ return d; })
 
 		return d;
 	});

@@ -24,7 +24,7 @@ settings:
     name: Starting position
     type: number
     min: 1
-  - property: flip_rank
+  - property: higher_scores_win
     name: Higher scores win
     description: Uncheck this if lower scores beat higher scores (eg. race times)
     type: boolean
