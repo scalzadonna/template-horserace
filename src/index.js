@@ -29,7 +29,6 @@ export var state = {
 	shade_width: 20,
 	line_opacity: 1,
 	line_width: 8,
-	timeslice: 0,
 	selected_horse: null,
 	mouseover_horse: null,
 	target_position: 10,
@@ -73,7 +72,7 @@ export function update() {
 	];
 	y = scaleLinear().range(y_range).domain(y_domain);
 
-	var races = [];
+	var timeslices = [];
 	data.horserace.column_names.times.forEach(function(stage, i) {
 		var race = [];
 		data.horserace.forEach(function(horse) {
@@ -88,8 +87,8 @@ export function update() {
 			if (!state.higher_scores_win) return ascending(a.time, b.time);
 			else return descending(a.time, b.time);
 		});
-		races.push(race)
-	})
+		timeslices.push(race)
+	});
 
 	line.curve(shape[state.curve]);
 
@@ -186,7 +185,7 @@ export function update() {
 	var horses = data.horserace.map(function(d) {
 		if (state.is_rank) {
 			d.ranks = d.times.map(function(time, i) {
-				return races[i].map(function(x) { return x.name }).indexOf(d.name) + 1;
+				return timeslices[i].map(function(x) { return x.name }).indexOf(d.name) + 1;
 			});
 		}
 		else d.ranks = d.times;
@@ -195,7 +194,7 @@ export function update() {
 			if (time.length > 0) {
 				return {
 					"i": i,
-					"value": !state.is_rank ? time : races[i].map(function(x) { return x.name }).indexOf(d.name) + 1
+					"value": !state.is_rank ? time : timeslices[i].map(function(x) { return x.name }).indexOf(d.name) + 1
 				}
 			}
 		}).filter(function(d){ return d; })
