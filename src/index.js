@@ -280,7 +280,6 @@ export function update() {
 		.attr("transform", function(d) {
 			var scale = current_position < d.line[0].i ? 0 : 1
 			return "translate(" + x(current_position) + "," + y(getRank(d, current_position)) + ") scale(" + scale + ")";
-			// return "translate(" + x(current_position) + "," + y(d.ranks[Math.floor(current_position)]) + ")";
 		});
 	labels_update.select(".end-circle-container").attr("transform", null);
 	labels_update.select(".end.circle").attr("r", state.end_circle_r).attr("fill", color);
