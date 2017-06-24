@@ -37,7 +37,7 @@ export var state = {
 	bgcolor: "#FFFFFF",
 	is_rank: true,
 	use_image:true,
-	curve: "curveMonotoneX",
+	curve: "curveLinear",
 	label_ranks: "Ranks",
 	label_scores: "Scores",
 	flip_rank: false
@@ -218,9 +218,13 @@ export function update() {
 		.on("click", clickHorse);
 	lines_enter.append("path").attr("class", "shade")
 		.attr("clip-path", "url(#clip)")
+		.attr("stroke-linejoin", "round")
+		.attr("stroke-linecap", "round")
 		.attr("fill", "none");
 	lines_enter.append("path").attr("class", "line")
 		.attr("clip-path", "url(#clip)")
+		.attr("stroke-linejoin", "round")
+		.attr("stroke-linecap", "round")
 		.attr("fill", "none");
 	var lines_update = lines.merge(lines_enter).attr("opacity", horseOpacity);
 	var duration = (was_rank !== null) ? 1000 : 0;
