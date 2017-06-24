@@ -116,7 +116,7 @@ data:
     dataset: horserace
     key: pic
     type: column
-    column: "Data::b"
+    column: "Data::B"
   - name: Times
     dataset: horserace
     key: times
