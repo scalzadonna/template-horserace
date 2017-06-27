@@ -16,19 +16,13 @@ build:
     directory: less
 
 settings:
-  - Axes
-  - property: is_rank
-    name: Show ranks
-    type: boolean
-  - property: target_position
-    name: Starting position
-    type: number
-    min: 1
+  - Scoring type
   - property: higher_scores_win
     name: Higher scores win
     description: Uncheck this if lower scores beat higher scores (eg. race times)
     type: boolean
-  - Lines
+
+  - Line styles
   - property: line_width
     name: Line width
     type: number
@@ -53,21 +47,26 @@ settings:
   - property: start_circle_r
     name: Start circle radius
     type: number
+    min: 0
   - property: end_circle_r
     name: End circle radius
     type: number
+    min: 0
   - property: rank_font_size
     name: Rank font size
     type: number
   - property: label_font_size
     name: Label font size
     type: number
-  - property: use_image
+  - property: label_decimals
+    name: Max number of decimal places on scores
+    type: number
+  - property: horse_images
     name: Use image
     type: boolean
 
   - Colors
-  - property: bgcolor
+  - property: bg_color
     name: Background color
     type: color
   - property: palette
@@ -76,9 +75,15 @@ settings:
     type: string
 
   - Animation
-  - property: duration
+  - property: stage_duration
     name: Animation duration
-    description: The animation speed, milliseconds per timeslice
+    description: The "race" animation length in milliseconds per stage
+    type: number
+    min: 0
+    step: 100
+  - property: update_duration
+    name: Mode duration
+    description: The animation duration when change between ranks and scores modes
     type: number
     min: 0
     step: 100
@@ -105,6 +110,16 @@ settings:
     min: 0
     step: 10
 
+  - Default view
+  - property: ranks_view
+    name: Show ranks by default
+    type: boolean
+  - property: target_position
+    name: Target stage
+    description: Which stage the graphic should "play" to by default
+    type: number
+    min: 1
+
 data:
   - Data
   - name: Name column
@@ -119,6 +134,6 @@ data:
     column: "Data::B"
   - name: Times
     dataset: horserace
-    key: times
+    key: stages
     type: columns
-    columns: "Data::C-G"
+    columns: "Data::C-K"
