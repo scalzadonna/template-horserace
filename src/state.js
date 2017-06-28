@@ -6,6 +6,7 @@ var state = {
 
 	bg_color: "#FFFFFF",
 	palette: "schemeCategory20",
+	custom_colors: "",
 
 	start_circle_r: 6,
 	end_circle_r: 24,

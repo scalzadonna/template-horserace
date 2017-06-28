@@ -72,8 +72,10 @@ settings:
   - property: palette
     name: Color scheme
     description: Choose a d3 color scheme, such as [[schemeCategory20]], [[schemeCategory20b]], [[schemeCategory20c]] or [[schemeCategory10]]
+  - property: custom_colors
+    name: Custom colors
+    description: Override the colour scheme by entering a comma-separated list of colors names or codes
     type: string
-
   - Animation
   - property: stage_duration
     name: Animation duration
