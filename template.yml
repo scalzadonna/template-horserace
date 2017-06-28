@@ -40,9 +40,26 @@ settings:
     type: number
   - property: curve
     name: Curve
-    description: Choose from [[curveLinear]], [[curveMonotoneX]], [[curveMonotoneY]], [[curveNatural]], [[curveStep]], [[curveStepAfter]] or [[curveStepBefore]]
     type: string
-
+    choices:
+      -
+        - Straight
+        - curveLinear
+      -
+        - Normal curve
+        - curveMonotoneX
+      -
+        - Overflowing curve
+        - curveNatural
+      -
+        - Step middle
+        - curveStep
+      -
+        - Step after
+        - curveStepAfter
+      -
+        - Step before
+        - curveStepAfter
   - Circles and labels
   - property: start_circle_r
     name: Start circle radius
@@ -71,7 +88,37 @@ settings:
     type: color
   - property: palette
     name: Color scheme
-    description: Choose a d3 color scheme, such as [[schemeCategory20]], [[schemeCategory20b]], [[schemeCategory20c]] or [[schemeCategory10]]
+    description: Choose "Other" to specify a comma-separate list of colour names or codes, or the name of a d3-chromatic scheme such as schemeAccent
+    type: string
+    choices:
+      -
+        - Category 10
+        - schemeCategory10
+      -
+        - Category 20
+        - schemeCategory20
+      -
+        - Category 20b
+        - schemeCategory20b
+      -
+        - Category 20c
+        - schemeCategory20c
+      -
+        - Accent
+        - schemeAccent
+      -
+        - Dark 2
+        - schemeDark2
+      -
+        - Paired
+        - schemePaired
+      -
+        - Pastel 1
+        - schemePastel1
+      -
+        - Pastel 2
+        - schemePastel2
+    choices_other: yes
   - property: custom_colors
     name: Custom colors
     description: Override the colour scheme by entering a comma-separated list of colors names or codes
