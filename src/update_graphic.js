@@ -136,7 +136,7 @@ function updateLabels(horses, duration) {
 	labels_update.select(".name-background")
 		.attr("fill", state.bg_color)
 		.attr("width", function() {
-			return this.parentElement && this.parentElement.querySelector(".name").getComputedTextLength() + 4;
+			return this.parentNode && this.parentNode.querySelector(".name").getComputedTextLength() + 4;
 		})
 		.attr("height", state.label_font_size)
 		.attr("x", state.end_circle_r)
