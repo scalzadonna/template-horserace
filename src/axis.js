@@ -25,14 +25,14 @@ function updateXAxis(x, w) {
 				.attr("opacity", 0.1)
 				.attr("height", 65)
 				.attr("width", function() {
-					return this.parentElement.getBoundingClientRect().width;
+					return this.parentNode.getBoundingClientRect().width;
 				});
 
 			tick.insert("rect", "text")
 				.attr("class", "text-outline")
 				.attr("height", "20px")
 				.attr("width", function(d) {
-					return this.parentElement.querySelector("text").getComputedTextLength() + 10;
+					return this.parentNode.querySelector("text").getComputedTextLength() + 10;
 				})
 				.attr("x", "21px").attr("y", "-32px")
 				.attr("transform", "rotate(-45)")
