@@ -59,7 +59,7 @@ settings:
         - curveStepAfter
       -
         - Step before
-        - curveStepAfter
+        - curveStepBefore
   - Circles and labels
   - property: start_circle_r
     name: Start circle radius
