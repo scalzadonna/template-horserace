@@ -2,7 +2,10 @@ id: flourish/horserace
 name: Horserace chart
 author: Flourish & Google News Lab teams
 description: A simple “horserace” chart template for showing changing rank over time
-
+autoheight: 
+  600: 450px
+  1000: 4x3
+  ∞: 750px
 sdk_version: 2
 
 build:
