@@ -121,7 +121,6 @@ settings:
       -
         - Pastel 2
         - schemePastel2
-    choices_other: yes
   - property: custom_colors
     name: Custom colors
     description: Override the colour scheme by entering a comma-separated list of colors names or codes
