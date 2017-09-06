@@ -178,6 +178,9 @@ settings:
   - property: y_axis_max
     name: Max score value
     type: string #TODO We need nullable number columns!
+  - property: y_axis_tick_suffix
+    name: Suffix score label
+    type: string
 
 data:
   - Data

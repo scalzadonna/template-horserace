@@ -38,7 +38,8 @@ var state = {
 	mouseover_horse: null,
 
 	y_axis_min: "",
-	y_axis_max: ""
+	y_axis_max: "",
+	y_axis_tick_suffix: ""
 
 
 

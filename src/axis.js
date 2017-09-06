@@ -68,8 +68,11 @@ function updateXAxis(x, w) {
 }
 
 function updateYAxis(y, w, duration) {
-	var yAxis = axisLeft(y).tickSize(-w).tickPadding(10);
-	if (state.ranks_view) yAxis.ticks(data.horserace.length);
+	var yAxis = axisLeft(y)
+	.tickSize(-w)
+	.tickFormat(function(d) {return d + state.y_axis_tick_suffix})
+	.tickPadding(10);
+	if (state.ranks_view) yAxis.ticks(data.horserace.length).tickFormat(function(d) {return d + ""});
 	select(".y.axis").transition().duration(duration).call(yAxis);
 }
 
