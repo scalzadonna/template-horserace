@@ -175,6 +175,9 @@ settings:
   - property: y_axis_min
     name: Min score value
     type: string #TODO We need nullable number columns!
+  - property: y_axis_max
+    name: Max score value
+    type: string #TODO We need nullable number columns!
 
 data:
   - Data

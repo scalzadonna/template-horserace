@@ -37,7 +37,9 @@ var state = {
 	selected_horse: null,
 	mouseover_horse: null,
 
-	y_axis_min: ""
+	y_axis_min: "",
+	y_axis_max: ""
+
 
 
 };
