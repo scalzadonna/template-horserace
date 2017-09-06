@@ -35,7 +35,11 @@ var state = {
 	target_position: null,
 
 	selected_horse: null,
-	mouseover_horse: null
+	mouseover_horse: null,
+
+	y_axis_min: ""
+
+
 };
 
 export default state;

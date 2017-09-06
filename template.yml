@@ -171,6 +171,11 @@ settings:
     type: number
     min: 1
 
+  - Y axis
+  - property: y_axis_min
+    name: Min score value
+    type: string #TODO We need nullable number columns!
+
 data:
   - Data
   - name: Name column
