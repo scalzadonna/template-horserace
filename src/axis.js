@@ -73,7 +73,7 @@ function updateYAxis(y, w, duration) {
 		.tickFormat(function(d) {return d + state.y_axis_tick_suffix})
 		.tickPadding(10);
 	
-	if (state.ranks_view) {
+	if (state.value_type == "ranks") {
 		yAxis.ticks(data.horserace.length).tickFormat(function(d) {return d + ""});
 	}
 	

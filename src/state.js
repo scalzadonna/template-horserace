@@ -29,8 +29,9 @@ var state = {
 	label_ranks: "Ranks",
 	label_scores: "Scores",
 
-	ranks_view: true,
+	value_type: "ranks",
 	higher_scores_win: false,
+	show_buttons: true,
 
 	target_position: null,
 
@@ -40,9 +41,6 @@ var state = {
 	y_axis_min: "",
 	y_axis_max: "",
 	y_axis_tick_suffix: ""
-
-
-
 };
 
 export default state;

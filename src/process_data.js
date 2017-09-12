@@ -46,7 +46,7 @@ function getProcessedData() {
 		horse.line = horse.stages.map(function(stage, stage_index) {
 			return {
 				"i": stage_index,
-				"value": state.ranks_view ? timeslices[stage_index][horse_index].rank : timeslices[stage_index][horse_index].score
+				"value": state.value_type == "ranks" ? timeslices[stage_index][horse_index].rank : timeslices[stage_index][horse_index].score
 			}
 		});
 		horse.start_circle = horse.line.filter(function(d) { return d.value != null})[0];

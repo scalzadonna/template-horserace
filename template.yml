@@ -24,6 +24,26 @@ settings:
     name: Higher scores win
     description: Uncheck this if lower scores beat higher scores (eg. race times)
     type: boolean
+  - property: value_type
+    name: Show ranks by default
+    type: string
+    style: button-group
+    choices: 
+      -
+        - Ranks
+        - ranks
+      -
+        - Scores
+        - scores
+  - property: show_buttons
+    name: Allow users to switch between modes
+    type: boolean
+  - property: target_position
+    name: Default start stage
+    description: Which stage the graphic should "play" to by default
+    type: number
+    min: 1
+    optional: true
 
   - Line styles
   - property: line_width
@@ -66,11 +86,11 @@ settings:
         - curveStepBefore
   - Circles and labels
   - property: start_circle_r
-    name: Start circle radius
+    name: Start radius
     type: number
     min: 0
   - property: end_circle_r
-    name: End circle radius
+    name: End radius
     type: number
     min: 0
   - property: rank_font_size
@@ -80,7 +100,7 @@ settings:
     name: Label font size
     type: number
   - property: label_decimals
-    name: Max number of decimal places on scores
+    name: No of decimal places on scores
     type: number
   - property: horse_images
     name: Use image
@@ -167,16 +187,6 @@ settings:
     min: 0
     step: 10
     width: quarter
-
-  - Default view
-  - property: ranks_view
-    name: Show ranks by default
-    type: boolean
-  - property: target_position
-    name: Target stage
-    description: Which stage the graphic should "play" to by default
-    type: number
-    min: 1
 
   - Y axis
   - property: y_axis_min

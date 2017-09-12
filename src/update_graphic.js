@@ -182,9 +182,14 @@ function getTargetPosition() {
 }
 
 function updateUI() {
-	selectAll("#rank-toggle button").classed("selected", function() {
-		return this.innerText === (state.ranks_view ? state.label_ranks : state.label_scores);
-	});
+	selectAll("#rank-toggle button")
+		.classed("selected", function() {
+			return select(this).attr("data-type") === (state.value_type == "ranks" ? "ranks" : "scores");
+		})
+		.style("display",function(){
+			if(state.show_buttons) return "inline-block";
+			else return "none";
+		});
 }
 
 function updateLineStyle() {

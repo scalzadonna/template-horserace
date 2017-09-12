@@ -19,7 +19,7 @@ function updateSizesAndScales(current_position) {
 	x = scaleLinear().range([0, w]).domain([0, data.horserace.column_names.stages.length - 1]);
 
 	var y_domain;
-	if (state.ranks_view) y_domain = [data.horserace.length, 1];
+	if (state.value_type == "ranks") y_domain = [data.horserace.length, 1];
 	else {
 		var y_max_score = max(data.horserace, function(d) { return max(d.stages, function(v) { return +v; }); }),
 		    y_min_score = min(data.horserace, function(d) { return min(d.stages, function(v) { return +v; }); });
