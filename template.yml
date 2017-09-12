@@ -182,9 +182,11 @@ settings:
   - property: y_axis_min
     name: Min score value
     type: number
+    optional: true
   - property: y_axis_max
     name: Max score value
     type: number
+    optional: true
   - property: y_axis_tick_suffix
     name: Suffix score label
     type: string
