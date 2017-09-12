@@ -44,6 +44,7 @@ settings:
   - property: curve
     name: Curve
     type: string
+    width: half
     choices:
       -
         - Straight
@@ -84,6 +85,7 @@ settings:
   - property: horse_images
     name: Use image
     type: boolean
+    width: half
 
   - Colors
   - property: bg_color
@@ -93,6 +95,7 @@ settings:
     name: Color scheme
     description: Choose "Other" to specify a comma-separate list of colour names or codes, or the name of a d3-chromatic scheme such as schemeAccent
     type: string
+    width: half
     choices:
       -
         - Category 10
@@ -145,21 +148,25 @@ settings:
     type: number
     min: 0
     step: 10
+    width: quarter
   - property: margin_right
     name: Right
     type: number
     min: 0
     step: 10
+    width: quarter
   - property: margin_bottom
     name: Bottom
     type: number
     min: 0
     step: 10
+    width: quarter
   - property: margin_left
     name: Left
     type: number
     min: 0
     step: 10
+    width: quarter
 
   - Default view
   - property: ranks_view
@@ -174,10 +181,10 @@ settings:
   - Y axis
   - property: y_axis_min
     name: Min score value
-    type: string #TODO We need nullable number columns!
+    type: number
   - property: y_axis_max
     name: Max score value
-    type: string #TODO We need nullable number columns!
+    type: number
   - property: y_axis_tick_suffix
     name: Suffix score label
     type: string
