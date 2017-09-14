@@ -63,7 +63,12 @@ function frame(t) {
 		.interrupt()
 		.attr("transform", transformLabel)
 		.select(".rank-number")
-		.text(displayValue);
+		.text(state.rank_outside_picture ? "" : displayValue);
+
+	labels_update.select(".name-rank")
+		.text(function(d) { 
+			return state.rank_outside_picture ? displayValue(d) + " " : "";
+		});
 
 	if (reached_target) {
 		af = null;

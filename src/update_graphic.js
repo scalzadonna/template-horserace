@@ -105,6 +105,8 @@ function updateLabels(horses, duration) {
 	labels_enter.append("rect").attr("class", "name-background");
 	labels_enter.append("text").attr("class", "name")
 		.attr("alignment-baseline", "central").attr("dominant-baseline", "central");
+	labels_enter.select(".name").append("tspan").attr("class","name-rank").attr("font-weight","bold").attr("font-size","18px");
+	labels_enter.select(".name").append("tspan").attr("class","name-label");
 
 	labels_update = labels.merge(labels_enter).attr("fill", color).attr("opacity", horseOpacity);
 	labels_update.transition().duration(duration).attr("transform", transformLabel);
@@ -128,11 +130,16 @@ function updateLabels(horses, duration) {
 
 	labels_update.select(".rank-number")
 		.attr("font-size", state.rank_font_size)
-		.text(displayValue);
+		.text(state.rank_outside_picture ? "" : displayValue);
 	labels_update.select(".name").attr("font-size", state.label_font_size)
 		.attr("x", state.end_circle_r + 4)
 		.attr("y", 0)
-		.text(function(d) { return d.name; });
+	labels_update.select(".name-rank")
+		.text(function(d) { 
+			return state.rank_outside_picture ? displayValue(d) + " " : "";
+		});
+	labels_update.select(".name-label")
+		.text(function(d) { return d.name })
 	labels_update.select(".name-background")
 		.attr("fill", state.bg_color)
 		.attr("width", function() {

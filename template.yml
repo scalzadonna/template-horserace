@@ -106,6 +106,9 @@ settings:
     name: Use image
     type: boolean
     width: half
+  - property: rank_outside_picture
+    name: Move score outside picture
+    type: boolean
 
   - Colors
   - property: bg_color
