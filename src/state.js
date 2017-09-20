@@ -14,7 +14,7 @@ var state = {
 	label_decimals: 1,
 	label_font_size: 12,
 	rank_font_size: 14,
-	rank_outside_picture: true,
+	rank_outside_picture: false,
 
 	line_opacity: 1,
 	line_width: 8,
