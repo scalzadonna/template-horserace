@@ -2,7 +2,7 @@ id: flourish/horserace
 name: Horserace chart
 author: Flourish & Google News Lab teams
 description: A ‘horserace’ or ‘bumps’ chart, useful to show changing rank over time
-autoheight: 
+autoheight:
   600: 450px
   1000: 4x3
   ∞: 750px
@@ -28,7 +28,7 @@ settings:
     name: Show ranks by default
     type: string
     style: button-group
-    choices: 
+    choices:
       -
         - Ranks
         - ranks
@@ -207,16 +207,23 @@ settings:
 data:
   - Data
   - name: Name column
+    description: The name of each entrant
     dataset: horserace
     key: name
     type: column
     column: "Data::A"
-  - name: Picture column
+  - name: Image column
+    description: The URL of the image to use
     dataset: horserace
     key: pic
     type: column
     column: "Data::B"
-  - name: Times
+    optional: true
+  - name: Score columns
+    description: >-
+      Raw scores, which will be automatically
+      converted to ranks. Column names will
+      be used to populate the x-axis of the chart.
     dataset: horserace
     key: stages
     type: columns
