@@ -1,7 +1,7 @@
 id: flourish/horserace
 name: Horserace chart
 author: Flourish & Google News Lab teams
-description: A simple “horserace” chart template for showing changing rank over time
+description: A ‘horserace’ or ‘bumps’ chart, useful to show changing rank over time
 autoheight: 
   600: 450px
   1000: 4x3
