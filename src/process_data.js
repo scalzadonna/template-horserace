@@ -10,10 +10,11 @@ function getProcessedData() {
 
 		// Pull out the names and raw scores
 		data.horserace.forEach(function(horse, horse_index) {
+			var stage = horse.stages[stage_index];
 			timeslice.push({
 				name: horse.name,
 				index: horse_index,
-				score: horse.stages[stage_index].replace(/\s/g,"") == "" ? null : +horse.stages[stage_index]
+				score: (stage == null || stage.replace(/\s/g, "") == "") ? null : +stage
 			});
 		});
 
