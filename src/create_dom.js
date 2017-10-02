@@ -42,4 +42,4 @@ function createDom() {
 		});
 }
 
-export { createDom, svg, plot, g_lines, g_labels, g_start_circles }; 
+export { createDom, svg, plot, g_lines, g_labels, g_start_circles };

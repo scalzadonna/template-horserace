@@ -137,7 +137,7 @@ function updateLabels(horses, duration) {
 		.attr("x", state.end_circle_r + 4)
 		.attr("y", 0)
 	labels_update.select(".name-rank")
-		.text(function(d) { 
+		.text(function(d) {
 			return state.rank_outside_picture ? displayValue(d) + state.rank_label_suffix + " " : "";
 		});
 	labels_update.select(".name-label")

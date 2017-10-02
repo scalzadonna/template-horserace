@@ -68,7 +68,7 @@ function frame(t) {
 		});
 
 	labels_update.select(".name-rank")
-		.text(function(d) { 
+		.text(function(d) {
 			return state.rank_outside_picture ? displayValue(d) + state.rank_label_suffix + " " : "";
 		});
 
