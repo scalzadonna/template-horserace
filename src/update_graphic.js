@@ -130,7 +130,9 @@ function updateLabels(horses, duration) {
 
 	labels_update.select(".rank-number")
 		.attr("font-size", state.rank_font_size)
-		.text(state.rank_outside_picture ? "" : displayValue);
+		.text(function(d) {
+			return state.rank_outside_picture ? "" : displayValue(d) + state.rank_label_suffix + " "
+		});
 	labels_update.select(".name").attr("font-size", state.label_font_size)
 		.attr("x", state.end_circle_r + 4)
 		.attr("y", 0)
