@@ -111,7 +111,6 @@ settings:
     type: boolean
   - property: rank_label_suffix
     name: Suffix
-    description: Suffix is only shown if score is outside image
     type: string
 
   - Colors
