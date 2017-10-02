@@ -109,6 +109,9 @@ settings:
   - property: rank_outside_picture
     name: Move score outside picture
     type: boolean
+  - property: rank_label_suffix
+    name: Suffix
+    type: string
 
   - Colors
   - property: bg_color

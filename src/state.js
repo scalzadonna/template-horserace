@@ -15,6 +15,7 @@ var state = {
 	label_font_size: 12,
 	rank_font_size: 14,
 	rank_outside_picture: false,
+	rank_label_suffix: "",
 
 	line_opacity: 1,
 	line_width: 8,
