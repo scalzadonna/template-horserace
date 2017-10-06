@@ -31,8 +31,8 @@ var state = {
 	label_ranks: "Ranks",
 	label_scores: "Scores",
 
-	value_type: "ranks",
-	higher_scores_win: false,
+	value_type: "scores",
+	higher_scores_win: true,
 	show_buttons: true,
 
 	target_position: null,

@@ -230,4 +230,4 @@ data:
     dataset: horserace
     key: stages
     type: columns
-    columns: "Data::C-K"
+    columns: "Data::C-N"
