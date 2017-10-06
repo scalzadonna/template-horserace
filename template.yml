@@ -20,14 +20,11 @@ build:
 
 settings:
   - Scoring type
-  - property: higher_scores_win
-    name: Higher scores win
-    description: Uncheck this if lower scores beat higher scores (eg. race times)
-    type: boolean
   - property: value_type
     name: Show ranks by default
     type: string
     style: button-group
+    width: half
     choices:
       -
         - Ranks
@@ -35,15 +32,19 @@ settings:
       -
         - Scores
         - scores
-  - property: show_buttons
-    name: Allow users to switch between modes
-    type: boolean
   - property: target_position
     name: Default start stage
     description: Which stage the graphic should "play" to by default
     type: number
     min: 1
     optional: true
+  - property: higher_scores_win
+    name: Higher scores win
+    description: Uncheck this if lower scores beat higher scores (eg. race times)
+    type: boolean
+  - property: show_buttons
+    name: Allow users to switch between modes
+    type: boolean
 
   - Line styles
   - property: line_width
@@ -52,19 +53,9 @@ settings:
   - property: line_opacity
     name: Line opacity
     type: number
-  - property: shade
-    name: Show shading behind line
-    type: boolean
-  - property: shade_width
-    name: Shading width
-    type: number
-  - property: shade_opacity
-    name: Shading opacity
-    type: number
   - property: curve
     name: Curve
     type: string
-    width: half
     choices:
       -
         - Straight
@@ -84,6 +75,15 @@ settings:
       -
         - Step before
         - curveStepBefore
+  - property: shade
+    name: Show shading behind line
+    type: boolean
+  - property: shade_width
+    name: Shading width
+    type: number
+  - property: shade_opacity
+    name: Shading opacity
+    type: number
   - Circles and labels
   - property: start_circle_r
     name: Start radius
@@ -102,16 +102,16 @@ settings:
   - property: label_decimals
     name: No of decimal places on scores
     type: number
-  - property: horse_images
-    name: Use image
-    type: boolean
-    width: half
-  - property: rank_outside_picture
-    name: Move score outside picture
-    type: boolean
   - property: rank_label_suffix
     name: Suffix
     type: string
+    width: half
+  - property: horse_images
+    name: Use image
+    type: boolean
+  - property: rank_outside_picture
+    name: Move score outside picture
+    type: boolean
 
   - Colors
   - property: bg_color
@@ -153,7 +153,7 @@ settings:
   - property: custom_colors
     name: Custom colors
     description: Override the colour scheme by entering a comma-separated list of colors names or codes
-    type: string
+    type: text
   - Animation
   - property: stage_duration
     name: Animation duration
@@ -206,6 +206,7 @@ settings:
   - property: y_axis_tick_suffix
     name: Suffix score label
     type: string
+    width: half
 
 data:
   - Data
