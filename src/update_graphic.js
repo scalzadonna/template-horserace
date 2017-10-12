@@ -6,15 +6,15 @@ import state from "./state";
 import data from "./data";
 import update from "./update";
 
-import { svg, plot, g_lines, g_labels, g_start_circles } from "./create_dom";
+import { plot, g_lines, g_labels, g_start_circles } from "./create_dom";
 import { getProcessedData } from "./process_data";
-import { updateSizesAndScales, h, w, x, y } from "./size";
+import { updateSizesAndScales, w, x, y } from "./size";
 import { updateAxes } from "./axis";
 import { updateColors, color } from "./colors";
 import { play, tieBreak, current_position } from "./play";
 
 var line = shape.line()
-	.x(function(d) { return x(d.i);  })
+	.x(function(d) { return x(d.i); })
 	.y(function(d) { return y(d.value); })
 	.defined(function(d) { return d.value != null; });
 
@@ -62,7 +62,7 @@ function updateStartCircles(horses, duration) {
 	start_circles.merge(start_circles_enter)
 		.transition().duration(duration)
 		.attr("cy", function(d) { return y(d.start_circle.value); })
-		.attr("cx", function(d) {return x(d.start_circle.i); })
+		.attr("cx", function(d) { return x(d.start_circle.i); })
 		.attr("opacity", horseOpacity)
 		.attr("r", state.start_circle_r)
 		.attr("fill", color);
@@ -71,7 +71,7 @@ function updateStartCircles(horses, duration) {
 
 function displayValue(d) {
 	var rounder = Math.pow(10, state.label_decimals),
-	     val = d.line[Math.floor(current_position)].value || 0;
+	    val = d.line[Math.floor(current_position)].value || 0;
 	return Math.round(val * rounder)/rounder;
 }
 
@@ -105,8 +105,9 @@ function updateLabels(horses, duration) {
 	labels_enter.append("rect").attr("class", "name-background");
 	labels_enter.append("text").attr("class", "name")
 		.attr("alignment-baseline", "central").attr("dominant-baseline", "central");
-	labels_enter.select(".name").append("tspan").attr("class","name-rank").attr("font-weight","bold").attr("font-size","18px");
-	labels_enter.select(".name").append("tspan").attr("class","name-label");
+	labels_enter.select(".name").append("tspan").attr("class", "name-rank")
+		.attr("font-weight", "bold").attr("font-size", "18px");
+	labels_enter.select(".name").append("tspan").attr("class", "name-label");
 
 	labels_update = labels.merge(labels_enter).attr("fill", color).attr("opacity", horseOpacity);
 	labels_update.transition().duration(duration).attr("transform", transformLabel);
@@ -131,17 +132,17 @@ function updateLabels(horses, duration) {
 	labels_update.select(".rank-number")
 		.attr("font-size", state.rank_font_size)
 		.text(function(d) {
-			return state.rank_outside_picture ? "" : displayValue(d) + state.rank_label_suffix + " "
+			return state.rank_outside_picture ? "" : displayValue(d) + state.rank_label_suffix + " ";
 		});
 	labels_update.select(".name").attr("font-size", state.label_font_size)
 		.attr("x", state.end_circle_r + 4)
-		.attr("y", 0)
+		.attr("y", 0);
 	labels_update.select(".name-rank")
 		.text(function(d) {
 			return state.rank_outside_picture ? displayValue(d) + state.rank_label_suffix + " " : "";
 		});
 	labels_update.select(".name-label")
-		.text(function(d) { return d.name })
+		.text(function(d) { return d.name; });
 	labels_update.select(".name-background")
 		.attr("fill", state.bg_color)
 		.attr("width", function() {
@@ -195,8 +196,8 @@ function updateUI() {
 		.classed("selected", function() {
 			return select(this).attr("data-type") === (state.value_type == "ranks" ? "ranks" : "scores");
 		})
-		.style("display",function(){
-			if(state.show_buttons) return "inline-block";
+		.style("display", function(){
+			if (state.show_buttons) return "inline-block";
 			else return "none";
 		});
 }

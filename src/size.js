@@ -27,7 +27,7 @@ function updateSizesAndScales(current_position) {
 		if (state.y_axis_min !== "") y_min_score = state.y_axis_min;
 		if (state.y_axis_max !== "") y_max_score = state.y_axis_max;
 		if (state.higher_scores_win) y_domain = [y_min_score, y_max_score];
-		else y_domain = [y_max_score, y_min_score]
+		else y_domain = [y_max_score, y_min_score];
 	}
 	y = scaleLinear().range([h, 0]).domain(y_domain);
 

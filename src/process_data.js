@@ -1,4 +1,4 @@
-import { ascending, descending, min, max } from "d3-array";
+import { ascending, descending } from "d3-array";
 
 import data from "./data";
 import state from "./state";
@@ -26,7 +26,7 @@ function getProcessedData() {
 
 		// Compute ranks
 		var prev_score = undefined, prev_rank = 0;
-		timeslice.forEach(function(d, i) {
+		timeslice.forEach(function(d) {
 			if (d.score == null) d.rank = null;
 			else if (d.score == prev_score) d.rank = prev_rank;
 			else d.rank = ++prev_rank;
@@ -48,11 +48,11 @@ function getProcessedData() {
 			return {
 				"i": stage_index,
 				"value": state.value_type == "ranks" ? timeslices[stage_index][horse_index].rank : timeslices[stage_index][horse_index].score
-			}
+			};
 		});
-		horse.start_circle = horse.line.filter(function(d) { return d.value != null})[0];
+		horse.start_circle = horse.line.filter(function(d) { return d.value != null; })[0];
 		return horse;
-	}).filter(function(d,i) {
+	}).filter(function(d) {
 		return d.start_circle;
 	});
 	return horses;

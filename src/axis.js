@@ -7,7 +7,7 @@ import update from "./update";
 
 var highlighted_stage;
 
-function updateXAxis(x, w) {
+function updateXAxis(x) {
 	var xAxis = axisTop(x).tickFormat(function(d) {
 		return data.horserace.column_names.stages[d] || "";
 	});
@@ -31,7 +31,7 @@ function updateXAxis(x, w) {
 			tick.insert("rect", "text")
 				.attr("class", "text-outline")
 				.attr("height", "20px")
-				.attr("width", function(d) {
+				.attr("width", function() {
 					return this.parentNode.querySelector("text").getComputedTextLength() + 10;
 				})
 				.attr("x", "21px").attr("y", "-32px")
@@ -55,7 +55,7 @@ function updateXAxis(x, w) {
 			select(this).select(".text-outline").style("display", "none");
 			select(".highlight-line").style("display", "none");
 		})
-		.on("click",function(d) {
+		.on("click", function(d) {
 			event.stopPropagation();
 			state.target_position = d + 1;
 			update();
@@ -70,11 +70,11 @@ function updateXAxis(x, w) {
 function updateYAxis(y, w, duration) {
 	var yAxis = axisLeft(y)
 		.tickSize(-w)
-		.tickFormat(function(d) {return d + state.y_axis_tick_suffix})
+		.tickFormat(function(d) { return d + state.y_axis_tick_suffix; })
 		.tickPadding(10);
 
 	if (state.value_type == "ranks") {
-		yAxis.ticks(data.horserace.length).tickFormat(function(d) {return d + ""});
+		yAxis.ticks(data.horserace.length).tickFormat(function(d) { return d + ""; });
 	}
 
 	select(".y.axis").transition().duration(duration).call(yAxis);

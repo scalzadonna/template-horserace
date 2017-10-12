@@ -29,7 +29,7 @@ function updateColors() {
 	}
 	color = function(d, i) {
 		return colors[i % colors.length];
-	}
+	};
 }
 
 export { updateColors, color };

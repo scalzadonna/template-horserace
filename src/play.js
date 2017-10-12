@@ -64,7 +64,7 @@ function frame(t) {
 		.attr("transform", transformLabel)
 		.select(".rank-number")
 		.text(function(d) {
-			return state.rank_outside_picture ? "" : displayValue(d) + state.rank_label_suffix + " "
+			return state.rank_outside_picture ? "" : displayValue(d) + state.rank_label_suffix + " ";
 		});
 
 	labels_update.select(".name-rank")

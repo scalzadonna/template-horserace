@@ -10,7 +10,8 @@
   ],
   "scripts": {
     "build": "rollup -c",
-    "less": "lessc --plugin=less-plugin-clean-css --source-map less/style.less static/style.css"
+    "less": "lessc --plugin=less-plugin-clean-css --source-map less/style.less static/style.css",
+    "lint": "eslint src"
   },
   "repository": {
     "type": "git",
@@ -28,5 +29,13 @@
     "rollup": "^0.41.6",
     "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-plugin-uglify": "^1.0.1"
-  }
+  },
+  "devDependencies": {
+    "@flourish/eslint-plugin-flourish": "^0.5.0",
+    "eslint": "git://github.com/robinhouston/eslint.git#bug-ignoredNodes",
+    "pre-commit": "^1.2.2"
+  },
+  "precommit": [
+    "lint"
+  ]
 }

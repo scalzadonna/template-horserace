@@ -16,14 +16,14 @@ function createDom() {
 
 	plot = svg.append("g").attr("id", "plot");
 	plot.append("clipPath").attr("id", "clip").append("rect").attr("width", 0);
-	plot.append("clipPath").attr("id", "circleClip").append("circle")
+	plot.append("clipPath").attr("id", "circleClip").append("circle");
 	plot.append("g").attr("class", "x axis");
 	plot.append("g").attr("class", "y axis");
 	plot.append("g").attr("class", "highlight-line").style("display", "none")
 		.append("line")
 		.attr("stroke", "#ccc")
 		.attr("stroke-width", "2px")
-		.attr("x1", 0.5).attr("x2", 0.5).attr("y1", -30).attr("y2", 400)
+		.attr("x1", 0.5).attr("x2", 0.5).attr("y1", -30).attr("y2", 400);
 
 	g_lines = plot.append("g").attr("class", "g-lines");
 	g_start_circles = plot.append("g").attr("class", "g-start-circles");
@@ -33,7 +33,7 @@ function createDom() {
 	toggle.append("button").html(state.label_ranks).attr("data-type", "ranks");
 	toggle.append("button").html(state.label_scores).attr("data-type", "scores");
 	toggle.selectAll("button")
-		.on("click", function(e) {
+		.on("click", function() {
 			state.value_type = select(this).attr("data-type");
 			update();
 		})
