@@ -156,7 +156,6 @@ function updateLabels(horses, duration) {
 
 function updateHorses(duration) {
 	var horses = getProcessedData();
-	console.log(horses);
 	updateLines(horses, duration);
 	updateStartCircles(horses, duration);
 	updateLabels(horses, duration);
