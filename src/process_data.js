@@ -52,6 +52,8 @@ function getProcessedData() {
 		});
 		horse.start_circle = horse.line.filter(function(d) { return d.value != null})[0];
 		return horse;
+	}).filter(function(d,i) {
+		return d.start_circle;
 	});
 	return horses;
 }
