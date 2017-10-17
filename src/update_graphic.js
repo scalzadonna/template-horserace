@@ -196,7 +196,7 @@ function updateUI() {
 		.classed("selected", function() {
 			return select(this).attr("data-type") === (state.value_type == "ranks" ? "ranks" : "scores");
 		})
-		.style("display", function(){
+		.style("display", function() {
 			if (state.show_buttons) return "inline-block";
 			else return "none";
 		});
