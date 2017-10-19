@@ -33,8 +33,8 @@ settings:
         - Scores
         - scores
   - property: target_position
-    name: Default start stage
-    description: Which stage the graphic should "play" to by default
+    name: Default end stage
+    description: Which stage the graphic should 'play' to by default
     type: number
     min: 1
     optional: true
@@ -49,9 +49,11 @@ settings:
   - Line styles
   - property: line_width
     name: Line width
+    description: Width in pixels
     type: number
   - property: line_opacity
     name: Line opacity
+    description: Set to a value between 0 and 1
     type: number
   - property: curve
     name: Curve
@@ -76,13 +78,16 @@ settings:
         - Step before
         - curveStepBefore
   - property: shade
+    new_section: true
     name: Show shading behind line
     type: boolean
   - property: shade_width
     name: Shading width
+    description: Width in pixels
     type: number
   - property: shade_opacity
     name: Shading opacity
+    description: Set to a value between 0 and 1
     type: number
   - Circles and labels
   - property: start_circle_r
@@ -110,16 +115,15 @@ settings:
     name: Use image
     type: boolean
   - property: rank_outside_picture
-    name: Move score outside picture
+    name: Move score outside image
     type: boolean
 
-  - Colors
+  - Colours
   - property: bg_color
-    name: Background color
+    name: Background colour
     type: color
   - property: palette
-    name: Color scheme
-    description: Choose "Other" to specify a comma-separate list of colour names or codes, or the name of a d3-chromatic scheme such as schemeAccent
+    name: Colour scheme
     type: string
     width: half
     choices:
@@ -151,13 +155,13 @@ settings:
         - Pastel 2
         - schemePastel2
   - property: custom_colors
-    name: Custom colors
-    description: Override the colour scheme by entering a comma-separated list of colors names or codes
+    name: Custom colours
+    description: Override the colour scheme by entering a comma-separated list of web-safe colour names or hex codes (e.g. <em>red</em>, <em>#FF6600</em>)
     type: text
   - Animation
   - property: stage_duration
     name: Animation duration
-    description: The "race" animation length in milliseconds per stage
+    description: The 'race' animation length in milliseconds per stage
     type: number
     min: 0
     step: 100
