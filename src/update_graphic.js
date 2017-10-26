@@ -94,6 +94,7 @@ function updateLabels(horses, duration) {
 		.attr("transform", transformLabel);
 
 	var end_circle = labels_enter.append("g").attr("class", "end-circle-container");
+	end_circle.append("circle").attr("class", "circle bg");
 	end_circle.append("circle").attr("class", "end circle");
 	end_circle.append("image")
 		.attr("clip-path", "url(#circleClip)")
@@ -106,14 +107,15 @@ function updateLabels(horses, duration) {
 	labels_enter.append("text").attr("class", "name")
 		.attr("alignment-baseline", "central").attr("dominant-baseline", "central");
 	labels_enter.select(".name").append("tspan").attr("class", "name-rank")
-		.attr("font-weight", "bold").attr("font-size", "18px");
+		.attr("font-weight", "bold");
 	labels_enter.select(".name").append("tspan").attr("class", "name-label");
 
-	labels_update = labels.merge(labels_enter).attr("fill", color).attr("opacity", horseOpacity);
+	labels_update = labels.merge(labels_enter).attr("fill", color);
 	labels_update.transition().duration(duration).attr("transform", transformLabel);
 
 	labels_update.select(".end-circle-container").attr("transform", null);
-	labels_update.select(".end.circle").attr("r", state.end_circle_r).attr("fill", color);
+	labels_update.select(".end.circle").attr("r", state.end_circle_r).attr("fill", color).attr("opacity", horseOpacity);
+	labels_update.select(".bg.circle").attr("r", state.end_circle_r).attr("fill", state.bg_color);
 
 	if (state.horse_images) {
 		var pic_w = state.end_circle_r * 2 - 2;
@@ -136,8 +138,10 @@ function updateLabels(horses, duration) {
 		});
 	labels_update.select(".name").attr("font-size", state.label_font_size)
 		.attr("x", state.end_circle_r + 4)
-		.attr("y", 0);
+		.attr("y", 0)
+		.attr("opacity", horseOpacity);
 	labels_update.select(".name-rank")
+		.attr("font-size", state.rank_font_size)
 		.text(function(d) {
 			return state.rank_outside_picture ? displayValue(d) + state.rank_label_suffix + " " : "";
 		});
@@ -163,8 +167,8 @@ function updateHorses(duration) {
 }
 
 function horseOpacity(d, i) {
-	if (state.selected_horse != null) return +(i == state.selected_horse);
-	if (state.mouseover_horse != null) return (i == state.mouseover_horse) ? 1 : 0.05;
+	if (state.selected_horse != null) return (i == state.selected_horse) ? 1 : 0.1;
+	if (state.mouseover_horse != null) return (i == state.mouseover_horse) ? 1 : 0.1;
 	return 1;
 }
 

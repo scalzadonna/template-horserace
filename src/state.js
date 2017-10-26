@@ -10,7 +10,7 @@ var state = {
 
 	start_circle_r: 6,
 	end_circle_r: 20,
-	horse_images: true,
+	horse_images: false,
 	label_decimals: 1,
 	label_font_size: 12,
 	rank_font_size: 14,
