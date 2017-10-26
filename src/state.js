@@ -33,7 +33,7 @@ var state = {
 
 	value_type: "scores",
 	higher_scores_win: true,
-	show_buttons: true,
+	show_buttons: false,
 
 	target_position: null,
 
