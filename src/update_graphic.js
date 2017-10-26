@@ -167,7 +167,8 @@ function updateHorses(duration) {
 }
 
 function horseOpacity(d, i) {
-	if (state.selected_horse != null) return (i == state.selected_horse) ? 1 : 0.1;
+	var selected_horses = state.selected_horse ? state.selected_horse.split(",") : [];
+	if (selected_horses.length > 0) return (selected_horses.indexOf(String(i)) > -1) ? 1 : 0.1;
 	if (state.mouseover_horse != null) return (i == state.mouseover_horse) ? 1 : 0.1;
 	return 1;
 }
@@ -184,8 +185,30 @@ function mouseout() {
 
 function clickHorse(d, i) {
 	event.stopPropagation();
-	if (state.selected_horse == null) state.selected_horse = i;
-	else state.selected_horse = null;
+	var selected_horses;
+	if (state.selected_horse == null) {
+		selected_horses = [i];
+	}
+	else {
+		selected_horses = state.selected_horse.split(",");
+		var is_selected = selected_horses.indexOf(String(i)) > -1;
+
+		if (is_selected) {
+			if(selected_horses.length > 1) {
+				selected_horses.splice(selected_horses.indexOf(String(i)), 1);
+			}
+			else {
+				selected_horses = [];
+			}
+		}
+		else {
+			selected_horses.push(String(i));
+		}	
+	}
+	state.selected_horse = selected_horses.join();
+	console.log(selected_horses)
+	console.log(state.selected_horse)
+	
 	update();
 }
 

@@ -24,7 +24,6 @@ function updateSizesAndScales(current_position) {
 		var y_max_score = max(data.horserace, function(d) { return max(d.stages, function(v) { return +v; }); }),
 		    y_min_score = min(data.horserace, function(d) { return min(d.stages, function(v) { return +v; }); });
 
-		console.log(state.y_axis_max)
 		if (state.y_axis_min !== "" && state.y_axis_min !== null) y_min_score = state.y_axis_min;
 		if (state.y_axis_max !== "" && state.y_axis_max !== null) y_max_score = state.y_axis_max;
 		if (state.higher_scores_win) y_domain = [y_min_score, y_max_score];
