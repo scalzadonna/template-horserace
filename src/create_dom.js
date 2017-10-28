@@ -30,8 +30,8 @@ function createDom() {
 	g_labels = plot.append("g").attr("class", "g-labels");
 
 	var toggle = body.append("div").attr("id", "rank-toggle");
-	toggle.append("button").html(state.label_ranks).attr("data-type", "ranks");
-	toggle.append("button").html(state.label_scores).attr("data-type", "scores");
+	toggle.append("button").text(state.label_ranks).attr("data-type", "ranks");
+	toggle.append("button").text(state.label_scores).attr("data-type", "scores");
 	toggle.selectAll("button")
 		.on("click", function() {
 			state.value_type = select(this).attr("data-type");

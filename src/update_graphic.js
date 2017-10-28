@@ -194,7 +194,7 @@ function clickHorse(d, i) {
 		var is_selected = selected_horses.indexOf(String(i)) > -1;
 
 		if (is_selected) {
-			if(selected_horses.length > 1) {
+			if (selected_horses.length > 1) {
 				selected_horses.splice(selected_horses.indexOf(String(i)), 1);
 			}
 			else {
@@ -203,12 +203,10 @@ function clickHorse(d, i) {
 		}
 		else {
 			selected_horses.push(String(i));
-		}	
+		}
 	}
 	state.selected_horse = selected_horses.join();
-	console.log(selected_horses)
-	console.log(state.selected_horse)
-	
+
 	update();
 }
 
