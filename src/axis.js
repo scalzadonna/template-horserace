@@ -74,7 +74,7 @@ function updateYAxis(y, w, duration) {
 		.tickPadding(10);
 
 	if (state.value_type == "ranks") {
-		yAxis.ticks(data.horserace.length).tickFormat(function(d) { return Number.isInteger(d) ? d : ""; });
+		yAxis.ticks(data.horserace.length).tickFormat(function(d) { return d % 1 == 0 ? d : ""; });
 	}
 
 	select(".y.axis").transition().duration(duration).call(yAxis);
