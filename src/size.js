@@ -9,7 +9,7 @@ import { svg, plot } from "./create_dom";
 
 var w, h, x, y;
 
-function updateSizesAndScales(current_position) {
+function updateSizesAndScales(current_position, max_rank) {
 	svg.attr("width", window.innerWidth).attr("height", window.innerHeight);
 	svg.style("background-color", state.bg_color);
 	plot.attr("transform", "translate(" + state.margin_left + "," + state.margin_top + ")");
@@ -19,7 +19,7 @@ function updateSizesAndScales(current_position) {
 	x = scaleLinear().range([0, w]).domain([0, data.horserace.column_names.stages.length - 1]);
 
 	var y_domain;
-	if (state.value_type == "ranks") y_domain = [data.horserace.length, 1];
+	if (state.value_type == "ranks") y_domain = [state.y_axis_max_rank || max_rank, state.y_axis_min_rank || 1];
 	else {
 		var y_max_score = max(data.horserace, function(d) { return max(d.stages, function(v) { return +v; }); }),
 		    y_min_score = min(data.horserace, function(d) { return min(d.stages, function(v) { return +v; }); });

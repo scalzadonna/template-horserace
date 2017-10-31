@@ -159,11 +159,10 @@ function updateLabels(horses, duration) {
 	labels.exit().remove();
 }
 
-function updateHorses(duration) {
-	var horses = getProcessedData();
-	updateLines(horses, duration);
-	updateStartCircles(horses, duration);
-	updateLabels(horses, duration);
+function updateHorses(data, duration) {
+	updateLines(data, duration);
+	updateStartCircles(data, duration);
+	updateLabels(data, duration);
 }
 
 function horseOpacity(d, i) {
@@ -232,12 +231,13 @@ function updateLineStyle() {
 }
 
 function updateGraphic(duration) {
-	updateSizesAndScales(current_position);
+	var horses = getProcessedData();
+	updateSizesAndScales(current_position, horses.max_rank);
 	updateLineStyle();
 	updateColors();
 	updateUI();
 	updateAxes(x, y, w, 0);
-	updateHorses(duration);
+	updateHorses(horses, duration);
 	if (current_position != getTargetPosition()) play();
 	else tieBreak();
 }

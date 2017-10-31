@@ -201,17 +201,30 @@ settings:
 
   - Y axis
   - property: y_axis_min
-    name: Min score value
+    name: Min score
     type: number
     optional: true
   - property: y_axis_max
-    name: Max score value
+    name: Max score
     type: number
     optional: true
-  - property: y_axis_tick_suffix
-    name: Suffix score label
+  - property: y_axis_tick_prefix
+    name: Number prefix
     type: string
     width: half
+  - property: y_axis_tick_suffix
+    name: Number suffix
+    type: string
+    width: half
+  - property: y_axis_min_rank
+    name: Min rank
+    type: number
+    optional: true
+    new_section: true
+  - property: y_axis_max_rank
+    name: Max rank
+    type: number
+    optional: true
 
 data:
   - Data

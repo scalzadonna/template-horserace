@@ -4,7 +4,7 @@ import data from "./data";
 import state from "./state";
 
 function getProcessedData() {
-	var timeslices = [];
+	var timeslices = [], max_rank = 0;
 	data.horserace.column_names.stages.forEach(function(stage, stage_index) {
 		var timeslice = [];
 
@@ -31,6 +31,7 @@ function getProcessedData() {
 			else if (d.score == prev_score) d.rank = prev_rank;
 			else d.rank = ++prev_rank;
 			prev_score = d.score;
+			max_rank = Math.max(max_rank, d.rank);
 		});
 
 		// Make look-up version
@@ -55,6 +56,7 @@ function getProcessedData() {
 	}).filter(function(d) {
 		return d.start_circle;
 	});
+	horses.max_rank = max_rank;
 	return horses;
 }
 

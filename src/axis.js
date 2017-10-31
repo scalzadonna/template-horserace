@@ -70,7 +70,7 @@ function updateXAxis(x) {
 function updateYAxis(y, w, duration) {
 	var yAxis = axisLeft(y)
 		.tickSize(-w)
-		.tickFormat(function(d) { return d + state.y_axis_tick_suffix; })
+		.tickFormat(function(d) { return state.y_axis_tick_prefix + d + state.y_axis_tick_suffix; })
 		.tickPadding(10);
 
 	if (state.value_type == "ranks") {

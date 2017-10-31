@@ -42,6 +42,10 @@ var state = {
 
 	y_axis_min: 0,
 	y_axis_max: "",
+	y_axis_min_rank: 1,
+	y_axis_max_rank: "",
+
+	y_axis_tick_prefix: "",
 	y_axis_tick_suffix: "%"
 };
 
