@@ -12,6 +12,7 @@ function tieBreak() {
 	var target_position = getTargetPosition();
 	selectAll(".labels-group").each(function(d) {
 		var rank = d.ranks[target_position];
+		if (rank == null) return;
 		if (!(rank in labels_by_rank)) labels_by_rank[rank] = [this];
 		else labels_by_rank[rank].push(this);
 	});

@@ -71,20 +71,39 @@ function updateStartCircles(horses, duration) {
 
 function displayValue(d) {
 	var rounder = Math.pow(10, state.label_decimals),
-	    val = d.line[Math.floor(current_position)].value || 0;
-	return Math.round(val * rounder)/rounder;
+	    val = d.line[Math.floor(current_position)].value || d.line[lastValidStage(d)].value;
+	return val == "" ? "" : Math.round(val * rounder)/rounder;
+}
+
+function lastValidStage(d) {
+	var valid_index = 0;
+	for (var i = Math.floor(current_position); i > 0; i--) {
+		if (d.line[i].value != null) { valid_index = i; break; }
+	}
+	return valid_index;
 }
 
 function transformLabel(d) {
 	var scale = current_position < d.start_circle.i ? 0 : 1,
-	    last_y_value = d.line[Math.floor(current_position)].value,
+	    last_x = Math.floor(current_position),
+	    last_y_value = d.line[last_x].value,
+	    next_y_value = d.line[last_x+1] ? d.line[last_x+1].value : null,
 	    stage_fraction = current_position - Math.floor(current_position),
+	    current_x_value = Math.floor(current_position),
 	    current_y_value = last_y_value;
-	if (stage_fraction > 0) {
-		var next_y_value = d.line[Math.floor(current_position + 1)].value;
+	if (
+		last_y_value == null ||
+		((last_x < d.stages.length) && (next_y_value == null && stage_fraction > 0))
+	) {
+		var last_valid_index = lastValidStage(d);
+		current_x_value = last_valid_index;
+		current_y_value = d.line[last_valid_index].value;
+	}
+	else {
+		current_x_value = current_position;
 		current_y_value = last_y_value + (next_y_value - last_y_value)*stage_fraction;
 	}
-	return "translate(" + x(current_position) + "," + y(current_y_value) + ") scale(" + scale + ")";
+	return "translate(" + x(current_x_value) + "," + y(current_y_value) + ") scale(" + scale + ")";
 }
 
 function updateLabels(horses, duration) {
