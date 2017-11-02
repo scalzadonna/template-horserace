@@ -112,6 +112,7 @@ function updateLabels(horses, duration) {
 		.on("mouseover", mouseover).on("mouseout", mouseout).on("click", clickHorse)
 		.attr("transform", transformLabel);
 
+	var end_circle_r = window.innerWidth > 420 ? state.end_circle_r : Math.min(state.end_circle_r, 12);
 	var end_circle = labels_enter.append("g").attr("class", "end-circle-container");
 	end_circle.append("circle").attr("class", "circle bg");
 	end_circle.append("circle").attr("class", "end circle");
@@ -133,11 +134,11 @@ function updateLabels(horses, duration) {
 	labels_update.transition().duration(duration).attr("transform", transformLabel);
 
 	labels_update.select(".end-circle-container").attr("transform", null);
-	labels_update.select(".end.circle").attr("r", state.end_circle_r).attr("fill", color).attr("opacity", horseOpacity);
-	labels_update.select(".bg.circle").attr("r", state.end_circle_r).attr("fill", state.bg_color);
+	labels_update.select(".end.circle").attr("r", end_circle_r).attr("fill", color).attr("opacity", horseOpacity);
+	labels_update.select(".bg.circle").attr("r", end_circle_r).attr("fill", state.bg_color);
 
 	if (state.horse_images) {
-		var pic_w = state.end_circle_r * 2 - 2;
+		var pic_w = end_circle_r * 2 - 2;
 		labels_update.select("image")
 			.attr("xlink:href", function(d) { return d.pic; })
 			.style("display", "inherit")
@@ -146,21 +147,24 @@ function updateLabels(horses, duration) {
 			.attr("x", -pic_w/2).attr("y", -pic_w/2);
 		plot.select("#circleClip circle")
 			.transition().duration(duration)
-			.attr("r", state.end_circle_r - 2);
+			.attr("r", end_circle_r - 2);
 	}
 	else { labels_update.select("image").style("display", "none"); }
 
+	var rank_font_size = window.innerWidth > 420 ? state.rank_font_size : Math.min(state.rank_font_size, 12);
+	var label_font_size = window.innerWidth > 420 ? state.label_font_size : Math.min(state.label_font_size, 12);
+
 	labels_update.select(".rank-number")
-		.attr("font-size", state.rank_font_size)
+		.attr("font-size", rank_font_size)
 		.text(function(d) {
 			return state.rank_outside_picture ? "" : displayValue(d) + state.rank_label_suffix + " ";
 		});
-	labels_update.select(".name").attr("font-size", state.label_font_size)
-		.attr("x", state.end_circle_r + 4)
+	labels_update.select(".name").attr("font-size", label_font_size)
+		.attr("x", end_circle_r + 4)
 		.attr("y", 0)
 		.attr("opacity", horseOpacity);
 	labels_update.select(".name-rank")
-		.attr("font-size", state.rank_font_size)
+		.attr("font-size", rank_font_size)
 		.text(function(d) {
 			return state.rank_outside_picture ? displayValue(d) + state.rank_label_suffix + " " : "";
 		});
@@ -171,9 +175,9 @@ function updateLabels(horses, duration) {
 		.attr("width", function() {
 			return this.parentNode && this.parentNode.querySelector(".name").getComputedTextLength() + 4;
 		})
-		.attr("height", state.label_font_size)
-		.attr("x", state.end_circle_r)
-		.attr("y", -state.label_font_size/2);
+		.attr("height", label_font_size)
+		.attr("x", end_circle_r)
+		.attr("y", -label_font_size/2);
 
 	labels.exit().remove();
 }

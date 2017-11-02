@@ -17,9 +17,11 @@ function tieBreak() {
 		else labels_by_rank[rank].push(this);
 	});
 
+	var label_font_size = window.innerWidth > 420 ? state.label_font_size : Math.min(state.label_font_size, 12);
+
 	for (var rank in labels_by_rank) {
 		var labels = labels_by_rank[rank];
-		var label_step = state.label_font_size * 1.2;
+		var label_step = label_font_size * 1.2;
 		if (labels.length > 1) {
 			for (var i = 0; i < labels.length; i++) {
 				var shift = state.end_circle_r * 0.5 * (i - 1/2);
@@ -27,7 +29,7 @@ function tieBreak() {
 					.attr("transform", "translate(" + shift + ",0)");
 				select(labels[i]).select(".name-background")
 					.attr("x", state.end_circle_r * 0.75 * (labels.length - 0.5))
-					.attr("y", (label_step * i) - (state.label_font_size/2));
+					.attr("y", ((label_step * i) - (((labels.length - 1) * label_step)/2)) - (label_font_size / 2));
 				select(labels[i]).select(".name")
 					.attr("x", state.end_circle_r * 0.75 * (labels.length - 0.5) + 4)
 					.attr("y", (label_step * i) - (((labels.length - 1) * label_step)/2));
