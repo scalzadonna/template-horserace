@@ -22,7 +22,7 @@ build:
 settings:
   - Scoring type
   - property: value_type
-    name: Show ranks by default
+    name: Mode to show on load
     type: string
     style: button-group
     width: half
