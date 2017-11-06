@@ -10,7 +10,7 @@ var state = {
 
 	start_circle_r: 6,
 	end_circle_r: 20,
-	horse_images: false,
+	horse_images: true,
 	label_decimals: 1,
 	label_font_size: 12,
 	rank_font_size: 14,
@@ -33,7 +33,7 @@ var state = {
 
 	value_type: "scores",
 	higher_scores_win: true,
-	show_buttons: false,
+	show_buttons: true,
 
 	target_position: null,
 
