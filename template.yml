@@ -1,7 +1,7 @@
 id: flourish/horserace
 name: Horserace chart
 author: Flourish & Google News Lab teams
-description: A ‘horserace’ or ‘bumps’ chart, useful to show changing rank over time
+description: A “horserace” or “bump” chart to show changing rank over time
 image_download: false
 autoheight:
   600: 450px
@@ -35,13 +35,13 @@ settings:
         - scores
   - property: target_position
     name: Default end stage
-    description: Which stage the graphic should 'play' to by default
+    description: Which stage the graphic should “play” to by default
     type: number
     min: 1
     optional: true
   - property: higher_scores_win
     name: Higher scores win
-    description: Uncheck this if lower scores beat higher scores (eg. race times)
+    description: Uncheck this if lower scores beat higher scores (e.g. race times)
     type: boolean
   - property: show_buttons
     name: Allow users to switch between modes
@@ -106,7 +106,7 @@ settings:
     name: Label font size
     type: number
   - property: label_decimals
-    name: No of decimal places on scores
+    name: Number of decimal places on scores
     type: number
   - property: rank_label_suffix
     name: Suffix
@@ -116,7 +116,7 @@ settings:
     name: Use image
     type: boolean
   - property: rank_outside_picture
-    name: Move score outside image
+    name: Put score next to circle
     type: boolean
 
   - Colours
@@ -162,7 +162,7 @@ settings:
   - Animation
   - property: stage_duration
     name: Animation duration
-    description: The 'race' animation length in milliseconds per stage
+    description: The “race” animation length, in milliseconds per stage
     type: number
     min: 0
     step: 100
