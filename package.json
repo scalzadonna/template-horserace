@@ -1,7 +1,7 @@
 {
   "name": "template-horserace",
-  "version": "1.0.0",
-  "description": "A template for use on flourish.studio",
+  "version": "3.0.0",
+  "description": "A “horserace” or “bump” chart to show changing rank over time",
   "main": "template.js",
   "author": "Flourish and Google News Lab teams",
   "license": "MIT",
