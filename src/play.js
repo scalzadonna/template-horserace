@@ -1,11 +1,18 @@
 import { select, selectAll } from "d3-selection";
 
 import state from "./state";
+import data from "./data";
 
 import { x } from "./size";
 import { getTargetPosition, transformLabel, displayValue, labels_update } from "./update_graphic";
 
 var current_position = 0;
+
+function updateCurrentPosition() {
+	var num_timeslices = data.horserace.column_names.stages.length;
+	if (current_position > num_timeslices - 1) current_position = num_timeslices - 1;
+}
+
 
 function tieBreak() {
 	var labels_by_rank = {};
@@ -91,4 +98,4 @@ function play() {
 	af = requestAnimationFrame(frame);
 }
 
-export { play, af, tieBreak, current_position };
+export { play, af, tieBreak, current_position, updateCurrentPosition };

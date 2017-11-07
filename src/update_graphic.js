@@ -11,7 +11,7 @@ import { getProcessedData } from "./process_data";
 import { updateSizesAndScales, w, x, y } from "./size";
 import { updateAxes } from "./axis";
 import { updateColors, color } from "./colors";
-import { play, tieBreak, current_position } from "./play";
+import { play, tieBreak, current_position, updateCurrentPosition } from "./play";
 
 var line = shape.line()
 	.x(function(d) { return x(d.i); })
@@ -183,6 +183,7 @@ function updateLabels(horses, duration) {
 }
 
 function updateHorses(data, duration) {
+	updateCurrentPosition();
 	updateLines(data, duration);
 	updateStartCircles(data, duration);
 	updateLabels(data, duration);
