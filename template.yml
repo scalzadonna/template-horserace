@@ -234,6 +234,7 @@ data:
     key: name
     type: column
     column: "Data::A"
+    datatype: string
   - name: Image column
     description: The URL of the image to use
     dataset: horserace
@@ -241,6 +242,7 @@ data:
     type: column
     column: "Data::B"
     optional: true
+    datatype: url
   - name: Score columns
     description: >-
       Raw scores, which will be automatically
@@ -250,3 +252,4 @@ data:
     key: stages
     type: columns
     columns: "Data::C-L"
+    datatype: number
