@@ -33,18 +33,12 @@ settings:
       -
         - Scores
         - scores
-  - property: target_position
-    name: Default end stage
-    description: Which stage the graphic should “play” to by default
-    type: number
-    min: 1
-    optional: true
+  - property: show_buttons
+    name: Allow users to switch between modes
+    type: boolean
   - property: higher_scores_win
     name: Higher scores win
     description: Uncheck this if lower scores beat higher scores (e.g. race times)
-    type: boolean
-  - property: show_buttons
-    name: Allow users to switch between modes
     type: boolean
 
   - Line styles
