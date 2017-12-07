@@ -21,7 +21,7 @@ var line = shape.line()
 var labels_update;
 
 function updateLines(horses, duration) {
-	var lines = g_lines.selectAll(".line-group").data(horses);
+	var lines = g_lines.selectAll(".line-group").data(horses, function(d) { return d.index; });
 	var lines_enter = lines.enter().append("g").attr("class", "horse line-group")
 		.on("mouseover", mouseover)
 		.on("mouseout", mouseout)
@@ -54,7 +54,7 @@ function updateLines(horses, duration) {
 }
 
 function updateStartCircles(horses, duration) {
-	var start_circles = g_start_circles.selectAll(".start-circle").data(horses);
+	var start_circles = g_start_circles.selectAll(".start-circle").data(horses, function(d) { return d.index; });
 	var start_circles_enter = start_circles.enter().append("circle").attr("class", "horse start-circle")
 		.attr("cy", function(d) { return y(d.start_circle.value); })
 		.attr("cx", function(d) { return x(d.start_circle.i); })
@@ -107,7 +107,7 @@ function transformLabel(d) {
 }
 
 function updateLabels(horses, duration) {
-	var labels = g_labels.selectAll(".labels-group").data(horses);
+	var labels = g_labels.selectAll(".labels-group").data(horses, function(d) { return d.index; });
 	var labels_enter = labels.enter().append("g").attr("class", "horse labels-group")
 		.on("mouseover", mouseover).on("mouseout", mouseout).on("click", clickHorse)
 		.attr("transform", transformLabel);
@@ -131,7 +131,15 @@ function updateLabels(horses, duration) {
 	labels_enter.select(".name").append("tspan").attr("class", "name-label");
 
 	labels_update = labels.merge(labels_enter).attr("fill", color);
-	labels_update.transition().duration(duration).attr("transform", transformLabel);
+	labels_update
+		.each(function(d, i) {
+			var is_selected = false;
+			var selected_horses = state.selected_horse ? state.selected_horse.split(",") : [];
+			if (selected_horses.length > 0 && selected_horses.indexOf(String(i)) > -1) is_selected = true;
+			if (selected_horses.length == 0 && state.mouseover_horse != null && i == state.mouseover_horse) is_selected = true;
+			if (is_selected) this.parentNode.appendChild(this);
+		})
+		.transition().duration(duration).attr("transform", transformLabel);
 
 	labels_update.select(".end-circle-container").attr("transform", null);
 	labels_update.select(".end.circle").attr("r", end_circle_r).attr("fill", color).attr("opacity", horseOpacity);
@@ -143,6 +151,7 @@ function updateLabels(horses, duration) {
 			.attr("xlink:href", function(d) { return d.pic; })
 			.style("display", "inherit")
 			.transition().duration(duration)
+			.attr("opacity", horseOpacity)
 			.attr("height", pic_w).attr("width", pic_w)
 			.attr("x", -pic_w/2).attr("y", -pic_w/2);
 		plot.select("#circleClip circle")

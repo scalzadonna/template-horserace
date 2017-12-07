@@ -12,6 +12,7 @@ function getProcessedData() {
 		data.horserace.forEach(function(horse, horse_index) {
 			var stage = horse.stages[stage_index].replace(/[\s,]/g, ""),
 			    score = stage == "" || isNaN(+stage) ? null : +stage;
+			horse.index = horse_index;
 			timeslice.push({
 				name: horse.name,
 				index: horse_index,

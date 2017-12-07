@@ -1,4 +1,5 @@
 import { select, selectAll } from "d3-selection";
+import { ascending } from "d3-array";
 
 import state from "./state";
 import data from "./data";
@@ -27,7 +28,7 @@ function tieBreak() {
 	var label_font_size = window.innerWidth > 420 ? state.label_font_size : Math.min(state.label_font_size, 12);
 
 	for (var rank in labels_by_rank) {
-		var labels = labels_by_rank[rank];
+		var labels = labels_by_rank[rank].sort(function(a, b) { return ascending(a.__data__.index, b.__data__.index); });
 		var label_step = label_font_size * 1.2;
 		if (labels.length > 1) {
 			for (var i = 0; i < labels.length; i++) {
