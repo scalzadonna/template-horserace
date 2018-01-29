@@ -133,20 +133,20 @@ settings:
     choices_other: true
     choices:
       -
-        - Flourish default 1
+        - Flourish categories A
         - flourish_default_1
       -
-        - Flourish default 2
+        - Flourish categories B
         - flourish_default_2
-      -
-        - Rainbow
-        - carto_rainbow
       -
         - Pastel light
         - carto_pastel
       -
         - Pastel dark
         - carto_antique
+      -
+        - Rainbow
+        - carto_rainbow
       -
         - Category 10
         - schemeCategory10
