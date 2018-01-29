@@ -1,14 +1,14 @@
 var state = {
 	margin_top: 100,
-	margin_right: 120,
+	margin_right: 80,
 	margin_bottom: 50,
 	margin_left: 50,
 
 	bg_color: "#FFFFFF",
-	palette: "schemeCategory20",
+	palette: "flourish_default_1",
 	custom_colors: "",
 
-	start_circle_r: 6,
+	start_circle_r: 5,
 	end_circle_r: 20,
 	horse_images: true,
 	label_decimals: 1,
@@ -18,12 +18,12 @@ var state = {
 	rank_label_suffix: "",
 
 	line_opacity: 1,
-	line_width: 4,
+	line_width: 5,
 	curve: "curveLinear",
 
 	shade: true,
 	shade_opacity: 0.1,
-	shade_width: 20,
+	shade_width: 25,
 
 	stage_duration: 200,
 	update_duration: 1000,
@@ -31,7 +31,7 @@ var state = {
 	label_ranks: "Ranks",
 	label_scores: "Scores",
 
-	value_type: "scores",
+	value_type: "ranks",
 	higher_scores_win: true,
 	show_buttons: true,
 

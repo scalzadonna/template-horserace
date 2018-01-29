@@ -50,6 +50,9 @@ settings:
     name: Line opacity
     description: Set to a value between 0 and 1
     type: number
+    min: 0
+    max: 1
+    step: 0.05
   - property: curve
     name: Curve
     type: string
@@ -79,10 +82,15 @@ settings:
   - property: shade_width
     name: Shading width
     description: Width in pixels
+    show_if: shade
     type: number
   - property: shade_opacity
     name: Shading opacity
     description: Set to a value between 0 and 1
+    min: 0
+    max: 1
+    step: 0.05
+    show_if: shade
     type: number
   - Circles and labels
   - property: start_circle_r
@@ -119,9 +127,26 @@ settings:
     type: color
   - property: palette
     name: Colour scheme
+    description: Select a color scheme, or fill in a comma separated list of color values (eg. '#855C75,#D9AF6B,#AF6458')
     type: string
     width: half
+    choices_other: true
     choices:
+      -
+        - Flourish default 1
+        - flourish_default_1
+      -
+        - Flourish default 2
+        - flourish_default_2
+      -
+        - Rainbow
+        - carto_rainbow
+      -
+        - Pastel light
+        - carto_pastel
+      -
+        - Pastel dark
+        - carto_antique
       -
         - Category 10
         - schemeCategory10
@@ -149,10 +174,6 @@ settings:
       -
         - Pastel 2
         - schemePastel2
-  - property: custom_colors
-    name: Custom colours
-    description: Override the colour scheme by entering a comma-separated list of web-safe colour names or hex codes (e.g. <em>red</em>, <em>#FF6600</em>)
-    type: text
   - Animation
   - property: stage_duration
     name: Animation duration
