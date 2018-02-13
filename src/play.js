@@ -102,7 +102,6 @@ function frame(t) {
 			select(this.parentNode).attr("x", function() {
 				if (!is_mobile) return end_circle_r + 4
 				else {
-					console.log(text_width);
 					var text_width = this.getBBox().width;
 					return -end_circle_r - 4 - text_width;
 				}
