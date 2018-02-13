@@ -1,35 +1,37 @@
-import { select } from "d3-selection";
+import { select, event } from "d3-selection";
 import state from "./state";
 import update from "./update";
+import { replay } from "./play";
 
-var svg, plot, g_lines, g_labels, g_start_circles;
+var svg, plot, g_lines, g_labels, g_start_circles, g_checks, viz_ui;
 
 function clearHighlighting() {
+	if (event.target) {
+		event.target.getAttribute("class")
+		if(event.target.getAttribute("class") == "check-rect") return;
+	}
 	state.selected_horse = null;
 	update();
 }
 
 function createDom() {
 	var body = select("body");
-
+	
+	viz_ui = body.append("div").attr("id", "viz-ui");
 	svg = body.append("svg").on("click", clearHighlighting);
 
 	plot = svg.append("g").attr("id", "plot");
 	plot.append("clipPath").attr("id", "clip").append("rect").attr("width", 0);
 	plot.append("clipPath").attr("id", "circleClip").append("circle");
-	plot.append("g").attr("class", "x axis");
-	plot.append("g").attr("class", "y axis");
-	plot.append("g").attr("class", "highlight-line").style("display", "none")
-		.append("line")
-		.attr("stroke", "#ccc")
-		.attr("stroke-width", "2px")
-		.attr("x1", 0.5).attr("x2", 0.5).attr("y1", -30).attr("y2", 400);
+	g_checks = plot.append("g").attr("class", "g-checks");
+	plot.append("g").attr("class", "x axis").style("pointer-events","none");
+	plot.append("g").attr("class", "y axis").style("pointer-events","none");
 
 	g_lines = plot.append("g").attr("class", "g-lines");
 	g_start_circles = plot.append("g").attr("class", "g-start-circles");
 	g_labels = plot.append("g").attr("class", "g-labels");
-
-	var toggle = body.append("div").attr("id", "rank-toggle");
+	
+	var toggle = viz_ui.append("div").attr("id", "rank-toggle");
 	toggle.append("button").text(state.label_ranks).attr("data-type", "ranks");
 	toggle.append("button").text(state.label_scores).attr("data-type", "scores");
 	toggle.selectAll("button")
@@ -40,6 +42,7 @@ function createDom() {
 		.classed("selected", function() {
 			return select(this).attr("data-type") === (state.value_type == "ranks" ? state.label_ranks : state.label_scores);
 		});
+	viz_ui.append("button").attr("id", "replay").text("Replay").on("click", replay);
 }
 
-export { createDom, svg, plot, g_lines, g_labels, g_start_circles };
+export { createDom, svg, plot, g_lines, g_labels, g_start_circles, g_checks, viz_ui };

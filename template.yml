@@ -4,8 +4,8 @@ author: Flourish & Google News Lab teams
 description: A “horserace” or “bump” chart to show changing rank over time
 image_download: false
 autoheight:
-  600: 450px
-  1000: 4x3
+  600: 500px
+  1000: 6x5
   ∞: 750px
 sdk_version: 2
 
@@ -35,6 +35,9 @@ settings:
         - scores
   - property: show_buttons
     name: Allow users to switch between modes
+    type: boolean
+  - property: show_replay
+    name: Show replay button
     type: boolean
   - property: higher_scores_win
     name: Higher scores win
@@ -101,6 +104,13 @@ settings:
     name: End radius
     type: number
     min: 0
+  - property: end_circle_stroke
+    name: End stroke
+    type: number
+    min: 0
+  - property: end_circle_stroke_bg
+    name: Stroke color same as background
+    type: boolean
   - property: rank_font_size
     name: Rank font size
     type: number
@@ -223,6 +233,9 @@ settings:
     name: Max score
     type: number
     optional: true
+  - property: y_axis_rounding
+    name: Round y axis
+    type: boolean
   - property: y_axis_tick_prefix
     name: Number prefix
     type: string
@@ -266,5 +279,5 @@ data:
     dataset: horserace
     key: stages
     type: columns
-    columns: "Data::C-L"
+    columns: "Data::C-AC"
     datatype: number

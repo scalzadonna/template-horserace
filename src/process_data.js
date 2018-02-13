@@ -10,6 +10,7 @@ function getProcessedData() {
 
 		// Pull out the names and raw scores
 		data.horserace.forEach(function(horse, horse_index) {
+			if(horse.stages[stage_index] === undefined) return;
 			var stage = horse.stages[stage_index].replace(/[\s,]/g, ""),
 			    score = stage == "" || isNaN(+stage) ? null : +stage;
 			horse.index = horse_index;

@@ -5,15 +5,15 @@ import state from "./state";
 import data from "./data";
 
 import { x } from "./size";
-import { getTargetPosition, transformLabel, displayValue, labels_update } from "./update_graphic";
+import { getTargetPosition, transformLabel, displayValue, labels_update, end_circle_r, is_mobile } from "./update_graphic";
 
 var current_position = 0;
 
-function updateCurrentPosition() {
+function updateCurrentPosition(from_start) {
 	var num_timeslices = data.horserace.column_names.stages.length;
 	if (current_position > num_timeslices - 1) current_position = num_timeslices - 1;
+	if (from_start) current_position = 1;
 }
-
 
 function tieBreak() {
 	var labels_by_rank = {};
@@ -25,26 +25,41 @@ function tieBreak() {
 		else labels_by_rank[rank].push(this);
 	});
 
-	var label_font_size = window.innerWidth > 420 ? state.label_font_size : Math.min(state.label_font_size, 12);
+	var label_font_size = !is_mobile ? state.label_font_size : Math.min(state.label_font_size, 12);
 
 	for (var rank in labels_by_rank) {
 		var labels = labels_by_rank[rank].sort(function(a, b) { return ascending(a.__data__.index, b.__data__.index); });
 		var label_step = label_font_size * 1.2;
 		if (labels.length > 1) {
 			for (var i = 0; i < labels.length; i++) {
-				var shift = state.end_circle_r * 0.5 * (i - 1/2);
+				var shift = end_circle_r * 0.5 * (i - 1/2);
 				select(labels[i]).select(".end-circle-container")
 					.attr("transform", "translate(" + shift + ",0)");
-				select(labels[i]).select(".name-background")
-					.attr("x", state.end_circle_r * 0.75 * (labels.length - 0.5))
-					.attr("y", ((label_step * i) - (((labels.length - 1) * label_step)/2)) - (label_font_size / 2));
-				select(labels[i]).select(".name")
-					.attr("x", state.end_circle_r * 0.75 * (labels.length - 0.5) + 4)
-					.attr("y", (label_step * i) - (((labels.length - 1) * label_step)/2));
+
+				select(labels[i]).classed("tied", true);
+
+				select(labels[i]).selectAll(".name-bg, .name-fg")
+					.attr("x", function() {
+						if (!is_mobile) {
+							return (labels.length) * (end_circle_r * 0.5) + (end_circle_r/2)
+						}
+						else {
+							var text_width = this.getBBox().width;
+							return -end_circle_r*1.5 - text_width
+						}
+						
+					})
 				labels[i].dataset.shift = shift;
 			}
 		}
 	}
+}
+
+function replay() {
+	state.target_position = 0;
+	current_position = 0;
+	state.target_position = data.horserace.column_names.stages.length;
+	play();
 }
 
 var prev_timestamp, target_is_ahead, af = null;
@@ -73,15 +88,26 @@ function frame(t) {
 	labels_update
 		.interrupt()
 		.attr("transform", transformLabel)
-		.select(".rank-number")
+		.selectAll(".rank-number")
 		.text(function(d) {
 			return state.rank_outside_picture ? "" : displayValue(d) + state.rank_label_suffix + " ";
-		});
+		})
+		
 
-	labels_update.select(".name-rank")
+	labels_update.selectAll(".name-rank")
 		.text(function(d) {
 			return state.rank_outside_picture ? displayValue(d) + state.rank_label_suffix + " " : "";
-		});
+		})
+		.each(function() {
+			select(this.parentNode).attr("x", function() {
+				if (!is_mobile) return end_circle_r + 4
+				else {
+					console.log(text_width);
+					var text_width = this.getBBox().width;
+					return -end_circle_r - 4 - text_width;
+				}
+			})
+		})
 
 	if (reached_target) {
 		af = null;
@@ -99,4 +125,4 @@ function play() {
 	af = requestAnimationFrame(frame);
 }
 
-export { play, af, tieBreak, current_position, updateCurrentPosition };
+export { play, af, tieBreak, current_position, updateCurrentPosition, replay };

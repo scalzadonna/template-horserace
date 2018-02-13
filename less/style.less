@@ -6,32 +6,91 @@ body {
 	margin: 0;
 	font-size: 12px;
 	font-family: 'Source Sans Pro', sans-serif;
+	-webkit-font-smoothing: antialiased;
+}
+
+* {
+	box-sizing: border-box;
 }
 
 svg {
 	display: block;
 }
-
-#rank-toggle {
-	position: absolute;
-	top: 10px;
-	right: 14px;
-	border-radius: 4px;
+#viz-ui {
+	position: relative;
+	width: 100%;
+	text-align:right;
+	padding-right: 14px;
 	overflow: hidden;
 	button {
-		background: #aaa;
-		color: #fff;
+		background: transparent;
+		color: #333;
 		border-radius: 0;
 		border: none;
 		outline: none;
 		font-family: inherit;
 		font-size: 12px;
 		cursor: pointer;
+		height:24px;
+		line-height: 24px;
+		font-weight: 700;
+		padding-top: 0;
+		padding-bottom: 0;
+		margin: 0;
+		&:hover {
+			background: #eee;
+		}
 		&.selected {
-			background: #333;
+			background: #2886B2;
+			color: #fff;
+		}
+	}
+	#replay {
+		float: right;
+		margin-top: 5px;
+		border-radius: 3px;
+		line-height: 22px;
+		border: 1px solid rgba(0,0,0,0.1);
+		background: transparent;
+		&:hover {
+			background: #eee;
+		}
+		&:before {
+			content: '';
+			display: inline-block;
+			background: url("./replay_icon.svg");
+			width: 10px;
+			height: 22px;
+			margin: 0 3px 0 0;
+			line-height: 22px;
+			background-size: 100% auto;
+			background-position: center center;
+			background-repeat: no-repeat;
+			vertical-align: top;
+		}
+	}
+	#rank-toggle {
+		border-radius: 3px;
+		margin-left: 5px;
+		overflow: hidden;
+		float: right;
+		margin-top: 5px;
+		position: relative;
+		&:after {
+			position: absolute;
+			content: '';
+			display: block;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			border-radius: 3px;
+			border: 1px solid rgba(0,0,0,0.1);
+			pointer-events: none;
 		}
 	}
 }
+
 
 .x.axis line,
 .x.axis path {
@@ -44,16 +103,12 @@ svg {
 	font-family: 'Source Sans Pro', sans-serif;
 }
 
-.horse, .rank-number, .end.circle, .name {
-	transition: 200ms opacity;
+.horse, .rank-number, .end.circle, .name, image {
+	transition: 100ms opacity linear;
 }
 
 .rank-number {
 	font-weight: bold;
-}
-
-.tick {
-	cursor: pointer;
 }
 
 .tick line {
@@ -64,9 +119,4 @@ svg {
 .domain {
 	stroke: #e0e1e1;
 	opacity: 1;
-}
-
-.circle.end {
-	stroke: #fff;
-	stroke-width: 4px;
 }
