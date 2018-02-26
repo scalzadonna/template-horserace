@@ -11,14 +11,14 @@ import { svg, plot, viz_ui } from "./create_dom";
 var w, h, x, y, y_max_score, y_min_score;
 
 function updateSizesAndScales(current_position, max_rank) {
-	var window_height = Flourish.fixed_height ? window.innerHeight : Math.max(500, window.innerHeight); //Setting min 500 for iOS bug
-	var svg_height = window_height - viz_ui.node().getBoundingClientRect().height; 
+	var window_height = Flourish.fixed_height ? window.innerHeight : Math.max(500, window.innerHeight); // Setting min 500 for iOS bug
+	var svg_height = window_height - viz_ui.node().getBoundingClientRect().height;
 
 	svg.attr("width", window.innerWidth).attr("height", svg_height);
 	svg.style("background-color", state.bg_color);
 	plot.attr("transform", "translate(" + state.margin_left + "," + state.margin_top + ")");
 	var margin_right = !is_mobile ? state.margin_right : state.end_circle_r;
-	var margin_bottom = Math.max(Math.max(state.end_circle_r + 2,state.start_circle_r), state.margin_bottom)
+	var margin_bottom = Math.max(Math.max(state.end_circle_r + 2, state.start_circle_r), state.margin_bottom);
 
 	w = Math.max(0, window.innerWidth - state.margin_left - margin_right);
 	h = Math.max(0, svg_height - state.margin_top - margin_bottom);

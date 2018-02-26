@@ -279,5 +279,5 @@ data:
     dataset: horserace
     key: stages
     type: columns
-    columns: "Data::C-AC"
+    columns: "Data::C-L"
     datatype: number

@@ -4,9 +4,6 @@ import { axisLeft, axisTop } from "d3-axis";
 import { y_min_score, y_max_score, w } from "./size";
 import state from "./state";
 import data from "./data";
-import update from "./update";
-
-var highlighted_stage;
 
 function updateXAxis(x) {
 	var xAxis = axisTop(x).tickFormat(function(d) {
@@ -18,9 +15,6 @@ function updateXAxis(x) {
 
 	select(".x.axis").call(xAxis)
 		.selectAll(".tick")
-		.each(function() {
-			var tick = select(this);
-		})
 		.selectAll("text")
 		.style("text-anchor", "start")
 		.attr("dx", "2.3em")

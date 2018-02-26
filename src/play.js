@@ -25,11 +25,8 @@ function tieBreak() {
 		else labels_by_rank[rank].push(this);
 	});
 
-	var label_font_size = !is_mobile ? state.label_font_size : Math.min(state.label_font_size, 12);
-
 	for (var rank in labels_by_rank) {
 		var labels = labels_by_rank[rank].sort(function(a, b) { return ascending(a.__data__.index, b.__data__.index); });
-		var label_step = label_font_size * 1.2;
 		if (labels.length > 1) {
 			for (var i = 0; i < labels.length; i++) {
 				var shift = end_circle_r * 0.5 * (i - 1/2);
@@ -40,15 +37,12 @@ function tieBreak() {
 
 				select(labels[i]).selectAll(".name-bg, .name-fg")
 					.attr("x", function() {
-						if (!is_mobile) {
-							return (labels.length) * (end_circle_r * 0.5) + (end_circle_r/2)
-						}
+						if (!is_mobile) return (labels.length) * (end_circle_r * 0.5) + (end_circle_r/2);
 						else {
 							var text_width = this.getBBox().width;
-							return -end_circle_r*1.5 - text_width
+							return -end_circle_r*1.5 - text_width;
 						}
-						
-					})
+					});
 				labels[i].dataset.shift = shift;
 			}
 		}
@@ -91,8 +85,7 @@ function frame(t) {
 		.selectAll(".rank-number")
 		.text(function(d) {
 			return state.rank_outside_picture ? "" : displayValue(d) + state.rank_label_suffix + " ";
-		})
-		
+		});
 
 	labels_update.selectAll(".name-rank")
 		.text(function(d) {
@@ -100,13 +93,13 @@ function frame(t) {
 		})
 		.each(function() {
 			select(this.parentNode).attr("x", function() {
-				if (!is_mobile) return end_circle_r + 4
+				if (!is_mobile) return end_circle_r + 4;
 				else {
 					var text_width = this.getBBox().width;
 					return -end_circle_r - 4 - text_width;
 				}
-			})
-		})
+			});
+		});
 
 	if (reached_target) {
 		af = null;
