@@ -1,4 +1,4 @@
-id: flourish/horserace
+id: horserace
 name: Horserace chart
 author: Flourish & Google News Lab teams
 description: A “horserace” or “bump” chart to show changing rank over time
@@ -95,6 +95,37 @@ settings:
     step: 0.05
     show_if: shade
     type: number
+  - property: missing
+    new_section: true
+    name: Show lines between missing data points
+    type: boolean
+  - property: missing_opacity
+    name: Line opacity
+    min: 0
+    max: 1
+    step: 0.1
+    show_if: missing
+    type: number
+  - property: missing_width
+    name: Line width
+    min: 0
+    step: 0.5
+    show_if: missing
+    type: number
+  - property: missing_dash_width
+    name: Line dash width
+    show_if: missing
+    type: number
+    width: half
+    step: 0.1
+    min: 0
+  - property: missing_dash_space
+    name: Line dash space
+    show_if: missing
+    type: number
+    width: half
+    min: 0
+
   - Circles and labels
   - property: start_circle_r
     name: Start radius

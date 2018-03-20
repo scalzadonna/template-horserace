@@ -45,6 +45,7 @@ function getProcessedData() {
 		timeslices.push(timeslice_by_horse_index);
 	});
 	var horses = data.horserace.map(function(horse, horse_index) {
+		var missing_value = null;
 		horse.ranks = horse.stages.map(function(stage, stage_index) {
 			return timeslices[stage_index][horse_index].rank;
 		});
@@ -54,6 +55,27 @@ function getProcessedData() {
 				"value": state.value_type == "ranks" ? timeslices[stage_index][horse_index].rank : timeslices[stage_index][horse_index].score
 			};
 		});
+		horse.missing_line = horse.line.map(function(position, i) {
+			if (position.value === null && i !== 0) {
+				if (!missing_value) {
+					missing_value = true;
+					return {
+						"i": position.i - 1,
+						"value": horse.line[i - 1].value
+					};
+				}
+			}
+			else if (position.value !== null && missing_value) {
+				missing_value = null;
+				return position;
+			}
+			else {
+				return {
+					"i": position.i,
+					"value": null
+				};
+			}
+		}).filter(function(d) { return d !== undefined; });
 		horse.start_circle = horse.line.filter(function(d) { return d.value != null; })[0];
 		return horse;
 	}).filter(function(d) {

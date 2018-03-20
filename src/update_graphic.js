@@ -34,6 +34,7 @@ function updateLines(horses, duration) {
 		.attr("stroke-linejoin", "round")
 		.attr("stroke-linecap", "round")
 		.attr("fill", "none");
+	lines_enter.append("path").attr("class", "missing");
 	lines_enter.append("path").attr("class", "line");
 	lines_enter.append("path").attr("class", "shade");
 
@@ -54,6 +55,14 @@ function updateLines(horses, duration) {
 		.attr("display", state.shade ? "block" : "none")
 		.attr("opacity", state.shade_opacity)
 		.attr("stroke-width", !is_mobile ? state.shade_width : Math.max(Math.round(state.shade_width/2), 2));
+	lines_update
+		.select(".missing")
+		.transition().duration(duration)
+		.attr("d", function(d) { return line(d.missing_line); })
+		.attr("opacity", state.missing ? state.missing_opacity : 0)
+		.attr("stroke-dasharray", state.missing_dash_width + "," + state.missing_dash_space)
+		.attr("stroke-width", (!is_mobile ? state.missing_width : Math.max(Math.round(state.missing_width), 2)));
+
 	lines.exit().remove();
 }
 

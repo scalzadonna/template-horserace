@@ -27,6 +27,12 @@ var state = {
 	shade_opacity: 0.1,
 	shade_width: 20,
 
+	missing: false,
+	missing_opacity: 1,
+	missing_dash_width: 0.2,
+	missing_dash_space: 4,
+	missing_width: 1.5,
+
 	stage_duration: 500,
 	update_duration: 500,
 
