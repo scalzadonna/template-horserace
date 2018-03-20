@@ -61,7 +61,7 @@ function updateLines(horses, duration) {
 		.attr("d", function(d) { return line(d.missing_line); })
 		.attr("opacity", state.missing ? state.missing_opacity : 0)
 		.attr("stroke-dasharray", state.missing_dash_width + "," + state.missing_dash_space)
-		.attr("stroke-width", (!is_mobile ? state.missing_width : Math.max(Math.round(state.missing_width), 2)));
+		.attr("stroke-width", (!is_mobile ? state.missing_width : Math.max(Math.round(state.missing_width / 2), 2)));
 
 	lines.exit().remove();
 }
