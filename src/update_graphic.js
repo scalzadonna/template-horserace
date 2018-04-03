@@ -179,6 +179,7 @@ function updateChecks() {
 
 function updateLabels(horses, duration) {
 	var labels = g_labels.selectAll(".labels-group").data(horses, function(d) { return d.index; });
+
 	var labels_enter = labels.enter().append("g").attr("class", "horse labels-group")
 		.on("mouseenter", mouseover).on("mouseleave", mouseout).on("click", clickHorse)
 		.attr("transform", transformLabel);
@@ -204,8 +205,9 @@ function updateLabels(horses, duration) {
 	labels_enter.selectAll(".name-fg, .name-bg").append("tspan").attr("class", "name-rank")
 		.attr("font-weight", "bold");
 	labels_enter.selectAll(".name-fg, .name-bg").append("tspan").attr("class", "name-label");
-	labels_update = labels.merge(labels_enter).attr("fill", color);
+	labels_update = labels.merge(labels_enter);
 	labels_update
+		.attr("fill", color)
 		.classed("tied", false)
 		.each(function(d, i) {
 			var is_selected = false;
@@ -247,13 +249,22 @@ function updateLabels(horses, duration) {
 		.text(function(d) {
 			return state.rank_outside_picture ? "" : displayValue(d) + state.rank_label_suffix + " ";
 		});
-	labels_update.selectAll(".name-label")
+	labels_update.select(".name-bg .name-label")
 		.text(function(d) { return d.name; });
-	labels_update.selectAll(".name-rank")
+	labels_update.select(".name-fg .name-label")
+		.text(function(d) { return d.name; });
+
+	labels_update.select(".name-bg .name-rank")
 		.attr("font-size", rank_font_size)
 		.text(function(d) {
 			return state.rank_outside_picture ? displayValue(d) + state.rank_label_suffix + " " : "";
 		});
+	labels_update.select(".name-fg .name-rank")
+		.attr("font-size", rank_font_size)
+		.text(function(d) {
+			return state.rank_outside_picture ? displayValue(d) + state.rank_label_suffix + " " : "";
+		});
+
 	labels_update.selectAll(".name-fg, .name-bg").attr("font-size", label_font_size)
 		.attr("x", function() {
 			if (!is_mobile) return end_circle_r + 4;
