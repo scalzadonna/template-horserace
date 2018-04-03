@@ -264,8 +264,17 @@ settings:
     name: Max score
     type: number
     optional: true
+  - property: y_axis_min_rank
+    name: Min rank
+    type: number
+    optional: true
+  - property: y_axis_max_rank
+    name: Max rank
+    type: number
+    optional: true
   - property: y_axis_rounding
     name: Round y axis
+    new_section: true
     type: boolean
   - property: y_axis_tick_prefix
     name: Number prefix
@@ -275,15 +284,6 @@ settings:
     name: Number suffix
     type: string
     width: half
-  - property: y_axis_min_rank
-    name: Min rank
-    type: number
-    optional: true
-    new_section: true
-  - property: y_axis_max_rank
-    name: Max rank
-    type: number
-    optional: true
 
 data:
   - Data
