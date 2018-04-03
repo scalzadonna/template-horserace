@@ -49,9 +49,9 @@ var state = {
 	selected_horse: null,
 	mouseover_horse: null,
 
-	y_axis_min: 0,
+	y_axis_min: "",
 	y_axis_max: "",
-	y_axis_min_rank: 1,
+	y_axis_min_rank: "",
 	y_axis_max_rank: "",
 	y_axis_rounding: false,
 
