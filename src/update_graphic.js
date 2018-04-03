@@ -306,9 +306,7 @@ function mouseover(d, i) {
 		labels_update
 			.each(function(e, j) {
 				if (i === j) {
-					if (!select(this).classed("tied")) {
-						this.parentNode.appendChild(this);
-					}
+					this.parentNode.appendChild(this);
 				}
 			});
 		lines_update.attr("opacity", horseOpacity);
