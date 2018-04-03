@@ -161,6 +161,9 @@ settings:
   - property: rank_outside_picture
     name: Put score next to circle
     type: boolean
+  - property: hide_labels
+    name: Only show label on mouseover
+    type: boolean
 
   - Colours
   - property: bg_color

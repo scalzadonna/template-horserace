@@ -13,6 +13,7 @@ var state = {
 	end_circle_stroke: 4,
 	end_circle_stroke_bg: true,
 	horse_images: true,
+	hide_labels: false,
 	label_decimals: 1,
 	label_font_size: 12,
 	rank_font_size: 14,

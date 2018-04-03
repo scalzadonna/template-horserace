@@ -291,6 +291,12 @@ function updateHorses(data, duration) {
 function horseOpacity(d, i) {
 	if (selected_horses.length > 0) return (selected_horses.indexOf(String(i)) > -1) ? 1 : 0.1;
 	if (state.mouseover_horse != null) return (i == state.mouseover_horse) ? 1 : 0.1;
+
+	if (state.hide_labels) {
+		if (select(this).classed("name-bg") || select(this).classed("name-fg")) {
+			return i == state.mouseover_horse ? 1 : 0;
+		}
+	}
 	return 1;
 }
 
