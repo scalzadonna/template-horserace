@@ -5,6 +5,7 @@ import * as shape from "d3-shape";
 import state from "./state";
 import data from "./data";
 import update from "./update";
+import { updateHeader } from "./lib/header";
 
 import { plot, g_lines, g_labels, g_start_circles, g_checks } from "./create_dom";
 import { getProcessedData } from "./process_data";
@@ -368,6 +369,7 @@ function getTargetPosition() {
 }
 
 function updateUI() {
+	select("#viz-ui").style("margin-top", !state.show_buttons && !state.show_replay ? 0 : null);
 	select("#rank-toggle")
 		.style("display", state.show_buttons ? null : "none")
 		.selectAll("button")
@@ -376,6 +378,8 @@ function updateUI() {
 		});
 
 	select("#replay").style("display", state.show_replay ? null : "none");
+
+	updateHeader();
 }
 
 function updateLineStyle() {

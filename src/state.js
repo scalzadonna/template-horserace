@@ -2,7 +2,7 @@ var state = {
 	margin_top: 100,
 	margin_right: 80,
 	margin_bottom: 0,
-	margin_left: 40,
+	margin_left: 10,
 
 	bg_color: "#FFFFFF",
 	palette: "flourish_default_1",
@@ -57,7 +57,13 @@ var state = {
 	y_axis_rounding: false,
 
 	y_axis_tick_prefix: "",
-	y_axis_tick_suffix: "%"
+	y_axis_tick_suffix: "%",
+
+	header_title: "German Elections 2017",
+	header_subtitle: "A closer look at the polling data",
+	header_color: "#333333",
+	header_margin: "10",
+	header_align: "left"
 };
 
 export default state;

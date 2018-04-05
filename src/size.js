@@ -5,6 +5,7 @@ import { min, max } from "d3-array";
 import state from "./state";
 import data from "./data";
 
+import { getHeaderHeight } from "./lib/header";
 import { is_mobile } from "./update_graphic";
 import { svg, plot, viz_ui } from "./create_dom";
 
@@ -12,15 +13,17 @@ var w, h, x, y, y_max_score, y_min_score;
 
 function updateSizesAndScales(current_position, max_rank) {
 	var window_height = Flourish.fixed_height ? window.innerHeight : Math.max(500, window.innerHeight); // Setting min 500 for iOS bug
-	var svg_height = window_height - viz_ui.node().getBoundingClientRect().height;
+	var svg_height = window_height - viz_ui.node().getBoundingClientRect().height - getHeaderHeight();
 
 	svg.attr("width", window.innerWidth).attr("height", svg_height);
 	svg.style("background-color", state.bg_color);
-	plot.attr("transform", "translate(" + state.margin_left + "," + state.margin_top + ")");
 	var margin_right = !is_mobile ? state.margin_right : state.end_circle_r;
-	var margin_bottom = Math.max(Math.max(state.end_circle_r + 2, state.start_circle_r), state.margin_bottom);
+	var margin_bottom = Math.max(state.end_circle_r + 2, state.start_circle_r) + state.margin_bottom;
+	var margin_left = Math.max(state.end_circle_r + 2, state.start_circle_r) + state.margin_left;
 
-	w = Math.max(0, window.innerWidth - state.margin_left - margin_right);
+	plot.attr("transform", "translate(" + margin_left + "," + state.margin_top + ")");
+
+	w = Math.max(0, window.innerWidth - margin_left - margin_right);
 	h = Math.max(0, svg_height - state.margin_top - margin_bottom);
 	x = scaleLinear().range([0, w]).domain([0, data.horserace.column_names.stages.length - 1]);
 

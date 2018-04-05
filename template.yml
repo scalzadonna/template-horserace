@@ -25,7 +25,7 @@ settings:
     name: Mode to show on load
     type: string
     style: button-group
-    width: half
+    width: full
     choices:
       -
         - Ranks
@@ -33,15 +33,46 @@ settings:
       -
         - Scores
         - scores
+  - property: higher_scores_win
+    name: Higher scores win
+    description: Uncheck this if lower scores beat higher scores (e.g. race times)
+    type: boolean
+
+  - Header
+  - property: header_title
+    name: Title
+    type: string
+  - property: header_subtitle
+    name: Subtitle
+    type: string
+  - property: header_margin
+    name: Margin
+    type: number
+    width: quarter
+  - property: header_color
+    name: Color
+    type: color
+    width: quarter
+  - property: header_align
+    name: Alignment
+    type: string
+    style: buttons
+    width: half
+    choices:
+      -
+        - fa-align-left
+        - left
+      -
+        - fa-align-center
+        - center
+      -
+        - fa-align-right
+        - right
   - property: show_buttons
     name: Allow users to switch between modes
     type: boolean
   - property: show_replay
     name: Show replay button
-    type: boolean
-  - property: higher_scores_win
-    name: Higher scores win
-    description: Uncheck this if lower scores beat higher scores (e.g. race times)
     type: boolean
 
   - Line styles
