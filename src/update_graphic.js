@@ -1,5 +1,6 @@
 import "d3-transition";
 import { select, selectAll, event } from "d3-selection";
+import { ascending } from "d3-array";
 import * as shape from "d3-shape";
 
 import state from "./state";
@@ -331,6 +332,17 @@ function mouseout() {
 		labels_update.select(".name-bg").attr("opacity", horseOpacity);
 
 		lines_update.attr("opacity", horseOpacity);
+
+		var tied_labels = [];
+		labels_update.each(function(e) {
+			if (select(this).classed("tied")) tied_labels.push([e.index, this]);
+		});
+
+		tied_labels.sort(function(a, b) {
+			return ascending(a[0], b[0]);
+		}).forEach(function(el) {
+			el[1].parentNode.appendChild(el[1]);
+		});
 
 		selectAll(".start-circle").attr("opacity", horseOpacity);
 	}
