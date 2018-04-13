@@ -59,8 +59,8 @@ var state = {
 	y_axis_tick_prefix: "",
 	y_axis_tick_suffix: "%",
 
-	header_title: "German Elections 2017",
-	header_subtitle: "A closer look at the polling data",
+	header_title: "",
+	header_subtitle: "",
 	header_color: "#333333",
 	header_margin: "10",
 	header_align: "left"

@@ -15,3 +15,4 @@
 #3.0.2
 
 * Tweak autoheight config
+* Remove default title/subtitle
