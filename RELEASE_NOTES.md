@@ -11,3 +11,7 @@
 
 * Add datatypes for bindings
 * Frontload selected horses
+
+#3.0.2
+
+* Tweak autoheight config
