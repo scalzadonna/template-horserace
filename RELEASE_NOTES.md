@@ -16,3 +16,9 @@
 
 * Tweak autoheight config
 * Remove default title/subtitle
+
+#3.1.0
+
+* Allow user to change button labels
+* “Scoring type” settings as buttons
+* Set body `overflow: hidden`
