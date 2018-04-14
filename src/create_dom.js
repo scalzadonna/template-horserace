@@ -32,10 +32,10 @@ function createDom() {
 	g_lines = plot.append("g").attr("class", "g-lines");
 	g_start_circles = plot.append("g").attr("class", "g-start-circles");
 	g_labels = plot.append("g").attr("class", "g-labels");
-	viz_ui.append("button").attr("id", "replay").text("Replay").on("click", replay);
+	viz_ui.append("button").attr("id", "replay").text(state.label_replay).on("click", replay);
 	var toggle = viz_ui.append("div").attr("id", "rank-toggle");
-	toggle.append("button").text(state.label_ranks).attr("data-type", "ranks");
-	toggle.append("button").text(state.label_scores).attr("data-type", "scores");
+	toggle.append("button").attr("id", "ranks").text(state.label_ranks).attr("data-type", "ranks");
+	toggle.append("button").attr("id", "scores").text(state.label_scores).attr("data-type", "scores");
 	toggle.selectAll("button")
 		.on("click", function() {
 			state.value_type = select(this).attr("data-type");

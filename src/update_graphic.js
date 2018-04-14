@@ -388,9 +388,9 @@ function updateUI() {
 		.classed("selected", function() {
 			return select(this).attr("data-type") === (state.value_type == "ranks" ? "ranks" : "scores");
 		});
-
-	select("#replay").style("display", state.show_replay ? null : "none");
-
+	select("#ranks").text(state.label_ranks);
+	select("#scores").text(state.label_scores);
+	select("#replay").style("display", state.show_replay ? null : "none").text(state.label_replay);
 	updateHeader();
 }
 

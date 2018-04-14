@@ -39,6 +39,7 @@ var state = {
 
 	label_ranks: "Ranks",
 	label_scores: "Scores",
+	label_replay: "Replay",
 
 	value_type: "ranks",
 	higher_scores_win: true,

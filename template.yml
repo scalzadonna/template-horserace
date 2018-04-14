@@ -78,6 +78,21 @@ settings:
   - property: show_replay
     name: Show replay button
     type: boolean
+  - property: label_ranks
+    name: “Ranks” label
+    type: string
+    width: quarter
+    show_if: show_buttons
+  - property: label_scores
+    name: “Scores” label
+    type: string
+    width: quarter
+    show_if: show_buttons
+  - property: label_replay
+    name: “Replay” label
+    type: string
+    width: quarter
+    show_if: show_replay
 
   - Line styles
   - property: line_width
