@@ -22,9 +22,9 @@ build:
 settings:
   - Scoring type
   - property: value_type
-    name: Mode to show on load
+    name: Chart mode to show on load
     type: string
-    style: button-group
+    style: buttons
     width: full
     choices:
       -
@@ -34,9 +34,13 @@ settings:
         - Scores
         - scores
   - property: higher_scores_win
-    name: Higher scores win
-    description: Uncheck this if lower scores beat higher scores (e.g. race times)
+    name: Data type
+    description: Useful for data where lower scores beat higher scores – e.g. race times
     type: boolean
+    style: buttons
+    choices:
+      - [ Higher scores win, true ]
+      - [ Higher scores lose, false ]
 
   - Header
   - property: header_title
@@ -69,7 +73,7 @@ settings:
         - fa-align-right
         - right
   - property: show_buttons
-    name: Allow users to switch between modes
+    name: Show ranks/scores buttons
     type: boolean
   - property: show_replay
     name: Show replay button
