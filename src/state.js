@@ -1,8 +1,10 @@
-var state = {
+import { FOOTER_DEFAULTS } from "./lib/footer";
+
+var state = Object.assign({
 	margin_top: 100,
 	margin_right: 80,
 	margin_bottom: 0,
-	margin_left: 10,
+	margin_left: 0,
 
 	bg_color: "#FFFFFF",
 	palette: "flourish_default_1",
@@ -64,7 +66,7 @@ var state = {
 	header_subtitle: "",
 	header_color: "#333333",
 	header_margin: "10",
-	header_align: "left"
-};
+	header_align: "left",
+}, FOOTER_DEFAULTS);
 
 export default state;

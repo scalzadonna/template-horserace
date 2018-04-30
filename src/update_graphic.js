@@ -7,6 +7,7 @@ import state from "./state";
 import data from "./data";
 import update from "./update";
 import { updateHeader } from "./lib/header";
+import { updateFooter } from "./lib/footer";
 
 import { plot, g_lines, g_labels, g_start_circles, g_checks } from "./create_dom";
 import { getProcessedData } from "./process_data";
@@ -139,13 +140,13 @@ function updateChecks() {
 	})
 	.on("mouseenter", function(d) {
 		selected_check = d;
-		select(this).select("line").transition().attr("opacity", "1");
-		select(this).select("circle").transition().attr("opacity", "1");
+		select(this).select("line").attr("opacity", "1");
+		select(this).select("circle").attr("opacity", "1");
 	})
 	.on("mouseleave", function() {
 		selected_check = null;
-		select(this).select("line").transition().attr("opacity", "0");
-		select(this).select("circle").transition().attr("opacity", "0");
+		select(this).select("line").attr("opacity", "0");
+		select(this).select("circle").attr("opacity", "0");
 	})
 	.on("click", function(d, i) {
 		state.target_position = i + 1;
@@ -381,6 +382,7 @@ function getTargetPosition() {
 }
 
 function updateUI() {
+	select("body").style("background-color", state.bg_color);
 	select("#viz-ui").style("margin-top", !state.show_buttons && !state.show_replay ? 0 : null);
 	select("#rank-toggle")
 		.style("display", state.show_buttons ? null : "none")
@@ -392,6 +394,7 @@ function updateUI() {
 	select("#scores").text(state.label_scores);
 	select("#replay").style("display", state.show_replay ? null : "none").text(state.label_replay);
 	updateHeader();
+	updateFooter(state);
 }
 
 function updateLineStyle() {

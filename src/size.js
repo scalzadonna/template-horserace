@@ -6,25 +6,27 @@ import state from "./state";
 import data from "./data";
 
 import { getHeaderHeight } from "./lib/header";
+import { getFooterHeight } from "./lib/footer";
 import { is_mobile } from "./update_graphic";
-import { svg, plot, viz_ui } from "./create_dom";
+import { svg, plot } from "./create_dom";
 
 var w, h, x, y, y_max_score, y_min_score;
 
 function updateSizesAndScales(current_position, max_rank) {
 	var window_height = Flourish.fixed_height ? window.innerHeight : Math.max(500, window.innerHeight); // Setting min 500 for iOS bug
-	var svg_height = window_height - viz_ui.node().getBoundingClientRect().height - getHeaderHeight();
+	var svg_height = window_height - getHeaderHeight() - getFooterHeight();
 
 	svg.attr("width", window.innerWidth).attr("height", svg_height);
-	svg.style("background-color", state.bg_color);
-	var margin_right = !is_mobile ? state.margin_right : state.end_circle_r;
-	var margin_bottom = Math.max(state.end_circle_r + 2, state.start_circle_r) + state.margin_bottom;
-	var margin_left = Math.max(state.end_circle_r + 2, state.start_circle_r) + state.margin_left;
+	var end_circle_size = state.end_circle_r + state.end_circle_stroke;
+	var margin_right = !is_mobile ? state.margin_right : end_circle_size;
+	var margin_bottom = Math.max(end_circle_size, state.start_circle_r) + state.margin_bottom;
+	var margin_top = Math.max(end_circle_size, state.start_circle_r) + state.margin_top;
+	var margin_left = Math.max(end_circle_size, state.start_circle_r) + state.margin_left;
 
-	plot.attr("transform", "translate(" + margin_left + "," + state.margin_top + ")");
+	plot.attr("transform", "translate(" + margin_left + "," + margin_top + ")");
 
 	w = Math.max(0, window.innerWidth - margin_left - margin_right);
-	h = Math.max(0, svg_height - state.margin_top - margin_bottom);
+	h = Math.max(0, svg_height - margin_top - margin_bottom);
 	x = scaleLinear().range([0, w]).domain([0, data.horserace.column_names.stages.length - 1]);
 
 	var y_domain;
@@ -40,11 +42,12 @@ function updateSizesAndScales(current_position, max_rank) {
 	}
 	y = scaleLinear().range([h, 0]).domain(y_domain);
 
+	var x_offset = Math.max(state.start_circle_r, state.line_width/2, state.shade_width/2) + state.margin_left;
 	select("#clip rect")
-		.attr("transform", "translate(0,-" + state.margin_top + ")")
-		.attr("height", h + state.margin_top + margin_bottom)
-		.attr("width", x(current_position) + state.margin_left)
-		.attr("x", -state.margin_left);
+		.attr("transform", "translate(0,-" + margin_top + ")")
+		.attr("height", h + margin_top + margin_bottom)
+		.attr("width", x(current_position) + x_offset)
+		.attr("x", -x_offset);
 }
 
 export { updateSizesAndScales, w, h, x, y, y_max_score, y_min_score };

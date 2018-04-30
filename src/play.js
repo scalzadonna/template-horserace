@@ -76,9 +76,10 @@ function frame(t) {
 	}
 	if (reached_target) current_position = target_position;
 
+	var x_offset = Math.max(state.start_circle_r, state.line_width/2, state.shade_width/2) + state.margin_left;
 	select("#clip rect")
-		.attr("width", x(current_position) + state.margin_left)
-		.attr("x", -state.margin_left);
+		.attr("width", x(current_position) + x_offset)
+		.attr("x", -x_offset);
 	labels_update
 		.interrupt()
 		.attr("transform", transformLabel)

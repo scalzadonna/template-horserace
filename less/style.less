@@ -1,5 +1,6 @@
 /* Styles go in this file. */
 @import "header";
+@import "footer";
 
 html, body { height: 100%; overflow: hidden; }
 
@@ -37,6 +38,7 @@ svg {
 		padding-top: 0;
 		padding-bottom: 0;
 		margin: 0;
+		background: #fff;
 		&:hover {
 			background: #eee;
 		}
@@ -52,6 +54,7 @@ svg {
 		background: transparent;
 		display: inline-block;
 		vertical-align: top;
+		background: #fff;
 		&:hover {
 			background: #eee;
 		}
@@ -103,8 +106,8 @@ svg {
 	font-family: 'Source Sans Pro', sans-serif;
 }
 
-.horse, .rank-number, .end.circle, .name, image {
-	transition: 100ms opacity linear;
+.horse, .rank-number, .end.circle, .name-bg, .name-fg, image, .check line, .check circle {
+	transition: 50ms opacity linear;
 }
 
 .rank-number {
