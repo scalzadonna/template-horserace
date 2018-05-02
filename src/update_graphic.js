@@ -2,12 +2,12 @@ import "d3-transition";
 import { select, selectAll, event } from "d3-selection";
 import { ascending } from "d3-array";
 import * as shape from "d3-shape";
+import { updateFooter } from "@flourish/footer";
 
 import state from "./state";
 import data from "./data";
 import update from "./update";
 import { updateHeader } from "./lib/header";
-import { updateFooter } from "./lib/footer";
 
 import { plot, g_lines, g_labels, g_start_circles, g_checks } from "./create_dom";
 import { getProcessedData } from "./process_data";

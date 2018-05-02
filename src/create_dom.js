@@ -1,10 +1,10 @@
 import { select, event } from "d3-selection";
+import { createFooter } from "@flourish/footer";
 
 import state from "./state";
 import update from "./update";
 import { replay } from "./play";
 import { createHeader, headerEl } from "./lib/header";
-import { createFooter } from "./lib/footer";
 
 var svg, plot, g_lines, g_labels, g_start_circles, g_checks, viz_ui;
 

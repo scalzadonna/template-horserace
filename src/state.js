@@ -1,4 +1,4 @@
-import { FOOTER_DEFAULTS } from "./lib/footer";
+import { FOOTER_DEFAULTS } from "@flourish/footer";
 
 var state = Object.assign({
 	margin_top: 100,
