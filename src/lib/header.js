@@ -17,12 +17,12 @@ function createHeader(el) {
 }
 
 function updateHeader() {
-	header_margin = !state.header_title && !state.header_subtitle ? 0 : state.header_margin + "px";
+	header_margin = !state.header_title && !state.header_subtitle ? 0 : state.header_margin;
 
 	headerEl.style.color = state.header_color;
 	headerEl.style.margin = state.header_margin + "px";
-	headerEl.style.marginTop = header_margin;
-	headerEl.style.marginBottom = header_margin;
+	headerEl.style.marginTop = header_margin + "px";
+	headerEl.style.marginBottom = header_margin + "px";
 	headerEl.style.textAlign = state.header_align;
 
 	titleEl.innerHTML = state.header_title ? state.header_title : "";

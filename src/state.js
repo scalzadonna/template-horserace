@@ -1,6 +1,4 @@
-import { FOOTER_DEFAULTS } from "@flourish/footer";
-
-var state = Object.assign({
+var state = {
 	margin_top: 100,
 	margin_right: 80,
 	margin_bottom: 0,
@@ -67,6 +65,6 @@ var state = Object.assign({
 	header_color: "#333333",
 	header_margin: "10",
 	header_align: "left",
-}, FOOTER_DEFAULTS);
+};
 
 export default state;

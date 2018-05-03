@@ -95,15 +95,10 @@ settings:
     show_if: show_replay
 
   - Footer
-  - property: footer_source_label
-    name: Source label
-    type: string
-    width: half
   - property: footer_source_name
     name: Source name
     type: string
     width: half
-    new_section: true
   - property: footer_source_url
     name: Source url
     type: string
@@ -131,6 +126,14 @@ settings:
     type: string
     width: half
     show_if: footer_multiple_sources
+  - property: footer_source_label_other
+    name: Change source label
+    type: boolean
+  - property: footer_source_label
+    name: Source label
+    type: string
+    width: half
+    show_if: footer_source_label_other
   - property: footer_note
     name: Note
     new_section: true

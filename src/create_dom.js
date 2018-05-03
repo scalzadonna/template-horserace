@@ -22,7 +22,7 @@ function createDom() {
 	createHeader(body.node());
 	viz_ui = select(headerEl).append("div").attr("id", "viz-ui");
 	svg = body.append("svg").on("click", clearHighlighting);
-	createFooter(body.node());
+	createFooter(body.node(), state);
 
 	plot = svg.append("g").attr("id", "plot");
 	plot.append("clipPath").attr("id", "clip").append("rect").attr("width", 0);
