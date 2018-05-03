@@ -4,7 +4,7 @@ var state = Object.assign({
 	margin_top: 100,
 	margin_right: 80,
 	margin_bottom: 0,
-	margin_left: 0,
+	margin_left: 10,
 
 	bg_color: "#FFFFFF",
 	palette: "flourish_default_1",
