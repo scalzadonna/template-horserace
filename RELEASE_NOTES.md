@@ -22,3 +22,8 @@
 * Allow user to change button labels
 * “Scoring type” settings as buttons
 * Set body `overflow: hidden`
+
+#3.4.0
+
+* Add footer
+* Improved margin logic

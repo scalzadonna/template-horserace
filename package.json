@@ -1,6 +1,6 @@
 {
   "name": "template-horserace",
-  "version": "3.3.0",
+  "version": "3.4.0",
   "description": "A “horserace” or “bump” chart to show changing rank over time",
   "main": "template.js",
   "author": "Flourish and Google News Lab teams",
@@ -18,7 +18,7 @@
     "url": "git+https://github.com/kiln/template-horserace"
   },
   "dependencies": {
-    "@flourish/footer": "^0.1.5",
+    "@flourish/footer": "^0.1.6",
     "d3-array": "^1.2.0",
     "d3-axis": "^1.0.8",
     "d3-scale": "^1.0.6",
