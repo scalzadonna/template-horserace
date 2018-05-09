@@ -438,6 +438,55 @@ settings:
     name: Number suffix
     type: string
     width: half
+  - Fonts
+  - property: fonts_primary_family
+    name: Primary font family
+    type: string
+    choices_other: true
+    choices:
+      - "Alegreya Sans"
+      - "Alegreya"
+      - "Merriweather Sans"
+      - "Merriweather"
+      - "Nunito Sans"
+      - "Nunito"
+      - "Quattrocento+Sans"
+      - "Quattrocento"
+      - "Roboto Slab"
+      - "Roboto"
+      - "Source Sans Pro"
+  - property: fonts_primary_other_bool
+    name: I have custom fonts
+    type: boolean
+  - property: fonts_primary_other
+    name: Your custom @font-face css code here
+    type: code
+    show_if: fonts_primary_other_bool
+  - property: fonts_secondary_family
+    name: Secondary font family
+    type: string
+    new_section: true
+    choices_other: true
+    choices:
+      - "Alegreya Sans"
+      - "Alegreya"
+      - "Merriweather Sans"
+      - "Merriweather"
+      - "Nunito Sans"
+      - "Nunito"
+      - "Quattrocento+Sans"
+      - "Quattrocento"
+      - "Roboto Slab"
+      - "Roboto"
+      - "Source Sans Pro"
+  - property: fonts_secondary_other_bool
+    name: I have custom fonts
+    type: boolean
+  - property: fonts_secondary_other
+    name: Your custom @font-face css code here
+    type: code
+    show_if: fonts_secondary_other_bool
+
 
 data:
   - Data

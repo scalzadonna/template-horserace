@@ -60,7 +60,7 @@ var state = {
 	y_axis_tick_prefix: "",
 	y_axis_tick_suffix: "%",
 
-	header_title: "",
+	header_title: "asdfasfsadfa",
 	header_subtitle: "",
 	header_color: "#333333",
 	header_margin: "10",

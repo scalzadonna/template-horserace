@@ -8,6 +8,7 @@ import state from "./state";
 import data from "./data";
 import update from "./update";
 import { updateHeader } from "./lib/header";
+import { updateFonts } from "./lib/fonts";
 
 import { plot, g_lines, g_labels, g_start_circles, g_checks } from "./create_dom";
 import { getProcessedData } from "./process_data";
@@ -411,6 +412,7 @@ function updateGraphic(duration) {
 	updateColors();
 	updateAxes(x, y, w, 0);
 	updateHorses(horses, duration);
+	updateFonts("body", "svg");
 	if (current_position != getTargetPosition()) play();
 	else tieBreak();
 }
