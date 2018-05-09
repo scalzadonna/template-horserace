@@ -2,11 +2,11 @@ import { select } from "d3-selection";
 import { scaleLinear } from "d3-scale";
 import { min, max } from "d3-array";
 import { getFooterHeight } from "@flourish/footer";
+import { getHeaderHeight } from "@flourish/header";
 
 import state from "./state";
 import data from "./data";
 
-import { getHeaderHeight } from "./lib/header";
 import { is_mobile } from "./update_graphic";
 import { svg, plot } from "./create_dom";
 

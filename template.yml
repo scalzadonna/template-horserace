@@ -62,6 +62,7 @@ settings:
     name: Margin
     type: number
     width: quarter
+    hide_if: header_margin_advanced
   - property: header_margin_advanced
     name: Advanced margin settings
     type: boolean
