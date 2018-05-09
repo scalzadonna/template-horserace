@@ -3,12 +3,7 @@ name: Horserace chart
 author: Flourish & Google News Lab teams
 description: A “horserace” or “bump” chart to show changing rank over time
 image_download: false
-autoheight:
-  600: 500px
-  1000: 600px
-  ∞: 700px
-sdk_version: 2
-
+sdk_version: 3
 build:
   src:
     script: npm run build
@@ -18,7 +13,6 @@ build:
   less:
     script: npm run less
     directory: less
-
 settings:
   - Scoring type
   - property: value_type
@@ -27,11 +21,9 @@ settings:
     style: buttons
     width: full
     choices:
-      -
-        - Ranks
+      - - Ranks
         - ranks
-      -
-        - Scores
+      - - Scores
         - scores
   - property: higher_scores_win
     name: Data type
@@ -39,9 +31,10 @@ settings:
     type: boolean
     style: buttons
     choices:
-      - [ Higher scores win, true ]
-      - [ Higher scores lose, false ]
-
+      - - Higher scores win
+        - true
+      - - Higher scores lose
+        - false
   - Header
   - property: header_title
     name: Title
@@ -63,14 +56,11 @@ settings:
     style: buttons
     width: half
     choices:
-      -
-        - fa-align-left
+      - - fa-align-left
         - left
-      -
-        - fa-align-center
+      - - fa-align-center
         - center
-      -
-        - fa-align-right
+      - - fa-align-right
         - right
   - property: show_buttons
     name: Show ranks/scores buttons
@@ -93,7 +83,6 @@ settings:
     type: string
     width: quarter
     show_if: show_replay
-
   - Footer
   - property: footer_source_name
     name: Source name
@@ -153,14 +142,11 @@ settings:
     style: buttons
     width: half
     choices:
-      -
-        - fa-align-left
+      - - fa-align-left
         - left
-      -
-        - fa-align-center
+      - - fa-align-center
         - center
-      -
-        - fa-align-right
+      - - fa-align-right
         - right
   - property: footer_margin
     name: Overall
@@ -193,8 +179,6 @@ settings:
     name: Advanced
     type: boolean
     width: half
-
-
   - Line styles
   - property: line_width
     name: Line width
@@ -211,23 +195,17 @@ settings:
     name: Curve
     type: string
     choices:
-      -
-        - Straight
+      - - Straight
         - curveLinear
-      -
-        - Normal curve
+      - - Normal curve
         - curveMonotoneX
-      -
-        - Overflowing curve
+      - - Overflowing curve
         - curveNatural
-      -
-        - Step middle
+      - - Step middle
         - curveStep
-      -
-        - Step after
+      - - Step after
         - curveStepAfter
-      -
-        - Step before
+      - - Step before
         - curveStepBefore
   - property: shade
     new_section: true
@@ -276,7 +254,6 @@ settings:
     type: number
     width: half
     min: 0
-
   - Circles and labels
   - property: start_circle_r
     name: Start radius
@@ -315,64 +292,51 @@ settings:
   - property: hide_labels
     name: Only show label on mouseover
     type: boolean
-
   - Colours
   - property: bg_color
     name: Background colour
     type: color
   - property: palette
     name: Colour scheme
-    description: Select a color scheme, or fill in a comma separated list of color values (eg. '#855C75,#D9AF6B,#AF6458')
+    description: >-
+      Select a color scheme, or fill in a comma separated list of color values
+      (eg. '#855C75,#D9AF6B,#AF6458')
     type: string
     width: half
     choices_other: true
     choices:
-      -
-        - Flourish categories A
+      - - Flourish categories A
         - flourish_default_1
-      -
-        - Flourish categories B
+      - - Flourish categories B
         - flourish_default_2
-      -
-        - Pastel light
+      - - Pastel light
         - carto_pastel
-      -
-        - Pastel dark
+      - - Pastel dark
         - carto_antique
-      -
-        - Rainbow
+      - - Rainbow
         - carto_rainbow
-      -
-        - Category 10
+      - - Category 10
         - schemeCategory10
-      -
-        - Category 20
+      - - Category 20
         - schemeCategory20
-      -
-        - Category 20b
+      - - Category 20b
         - schemeCategory20b
-      -
-        - Category 20c
+      - - Category 20c
         - schemeCategory20c
-      -
-        - Accent
+      - - Accent
         - schemeAccent
-      -
-        - Dark 2
+      - - Dark 2
         - schemeDark2
-      -
-        - Paired
+      - - Paired
         - schemePaired
-      -
-        - Pastel 1
+      - - Pastel 1
         - schemePastel1
-      -
-        - Pastel 2
+      - - Pastel 2
         - schemePastel2
   - Animation
   - property: stage_duration
     name: Animation duration
-    description: The “race” animation length, in milliseconds per stage
+    description: 'The “race” animation length, in milliseconds per stage'
     type: number
     min: 0
     step: 100
@@ -382,7 +346,6 @@ settings:
     type: number
     min: 0
     step: 100
-
   - Margins
   - property: margin_top
     name: Top
@@ -408,7 +371,6 @@ settings:
     min: 0
     step: 10
     width: quarter
-
   - Y axis
   - property: y_axis_min
     name: Min score
@@ -438,7 +400,6 @@ settings:
     name: Number suffix
     type: string
     width: half
-
 data:
   - Data
   - name: Name column
@@ -446,23 +407,22 @@ data:
     dataset: horserace
     key: name
     type: column
-    column: "Data::A"
+    column: 'Data::A'
     datatype: string
   - name: Image column
     description: The URL of the image to use
     dataset: horserace
     key: pic
     type: column
-    column: "Data::B"
+    column: 'Data::B'
     optional: true
     datatype: url
   - name: Score columns
     description: >-
-      Raw scores, which will be automatically
-      converted to ranks. Column names will
-      be used to populate the x-axis of the chart.
+      Raw scores, which will be automatically converted to ranks. Column names
+      will be used to populate the x-axis of the chart.
     dataset: horserace
     key: stages
     type: columns
-    columns: "Data::C-L"
+    columns: 'Data::C-L'
     datatype: number
