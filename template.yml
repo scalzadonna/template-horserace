@@ -42,10 +42,6 @@ settings:
   - property: header_subtitle
     name: Subtitle
     type: string
-  - property: header_margin
-    name: Margin
-    type: number
-    width: quarter
   - property: header_color
     name: Color
     type: color
@@ -62,7 +58,36 @@ settings:
         - center
       - - fa-align-right
         - right
+  - property: header_margin
+    name: Margin
+    type: number
+    width: quarter
+  - property: header_margin_advanced
+    name: Advanced margin settings
+    type: boolean
+  - property: header_margin_top
+    name: Top
+    type: number
+    width: quarter
+    show_if: header_margin_advanced
+  - property: header_margin_right
+    name: Right
+    type: number
+    width: quarter
+    show_if: header_margin_advanced
+  - property: header_margin_bottom
+    name: Bottom
+    type: number
+    width: quarter
+    show_if: header_margin_advanced
+  - property: header_margin_left
+    name: Left
+    type: number
+    width: quarter
+    show_if: header_margin_advanced
+
   - property: show_buttons
+    new_section: true
     name: Show ranks/scores buttons
     type: boolean
   - property: show_replay

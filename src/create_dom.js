@@ -4,7 +4,7 @@ import { createFooter } from "@flourish/footer";
 import state from "./state";
 import update from "./update";
 import { replay } from "./play";
-import { createHeader, headerEl } from "./lib/header";
+import { createHeader, header_el } from "./lib/header";
 
 var svg, plot, g_lines, g_labels, g_start_circles, g_checks, viz_ui;
 
@@ -19,8 +19,8 @@ function clearHighlighting() {
 
 function createDom() {
 	var body = select("body");
-	createHeader(body.node());
-	viz_ui = select(headerEl).append("div").attr("id", "viz-ui");
+	createHeader(body.node(), state);
+	viz_ui = select(header_el).append("div").attr("id", "viz-ui");
 	svg = body.append("svg").on("click", clearHighlighting);
 	createFooter(body.node(), state);
 
