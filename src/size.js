@@ -13,15 +13,7 @@ import { svg, plot } from "./create_dom";
 var w, h, x, y, y_max_score, y_min_score;
 
 function updateSizesAndScales(current_position, max_rank) {
-	var window_height = Flourish.fixed_height ? window.innerHeight : Math.max(500, window.innerHeight); // Setting min 500 for iOS bug
-	if (Flourish.fixed_height) window_height = window.innerHeight;
-	else {
-		var iw = window.innerWidth;
-		if (iw <= 600) window_height = 500;
-		else if (iw <= 1000) window_height = 600;
-		else window_height = 700;
-		Flourish.setHeight(window_height);
-	}
+	var window_height = window.innerHeight;
 	var svg_height = window_height - getHeaderHeight() - getFooterHeight();
 
 	svg.attr("width", window.innerWidth).attr("height", svg_height);
