@@ -1,3 +1,6 @@
+#3.4.1
+* Use standard breakpoints
+
 #3.1.2
 
 * Add replay button
