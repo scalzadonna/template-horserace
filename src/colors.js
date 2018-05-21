@@ -29,14 +29,11 @@ var color;
 
 function updateColors() {
 	var colors;
-	if (d3_palettes[state.palette]) colors = d3_palettes[state.palette];
+	if (Array.isArray(state.palette)) colors = state.palette;
+	else if (d3_palettes[state.palette]) colors = d3_palettes[state.palette];
 	else if (flourish_palettes[state.palette]) colors = flourish_palettes[state.palette];
 	else colors = state.palette.replace(/\s/g, "").split(",");
 	if (!colors) throw new Error("Unknown color scheme: " + state.palette);
-
-	if (state.custom_colors != "") {
-		colors = state.custom_colors.replace(/\s/g, "").split(",");
-	}
 	color = function(d, i) {
 		return colors[i % colors.length];
 	};
