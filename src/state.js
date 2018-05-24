@@ -65,6 +65,12 @@ var state = {
 	header_color: "#333333",
 	header_margin: "10",
 	header_align: "left",
+
+	filter_control_type: "auto-buttons",
+	filter_width: 300,
+	filter_include_all: true,
+	filter_all_label: "All",
+	filter: null
 };
 
 export default state;

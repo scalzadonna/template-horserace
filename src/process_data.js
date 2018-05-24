@@ -5,11 +5,18 @@ import state from "./state";
 
 function getProcessedData() {
 	var timeslices = [], max_rank = 0;
+
+	data.horserace.forEach(function(d, i) { d.unfiltered_index = i; });
+
+	var filtered_horses;
+	if (state.filter === null || state.filter === state.filter_all_label) filtered_horses = data.horserace;
+	else filtered_horses = data.horserace.filter(function(d) { return d.filter === state.filter; });
+
 	data.horserace.column_names.stages.forEach(function(stage, stage_index) {
 		var timeslice = [];
 
 		// Pull out the names and raw scores
-		data.horserace.forEach(function(horse, horse_index) {
+		filtered_horses.forEach(function(horse, horse_index) {
 			if (horse.stages[stage_index] === undefined) return;
 			var stage = horse.stages[stage_index].replace(/[\s,]/g, ""),
 			    score = stage == "" || isNaN(+stage) ? null : +stage;
@@ -44,7 +51,7 @@ function getProcessedData() {
 		});
 		timeslices.push(timeslice_by_horse_index);
 	});
-	var horses = data.horserace.map(function(horse, horse_index) {
+	var horses = filtered_horses.map(function(horse, horse_index) {
 		var missing_value = null;
 		horse.ranks = horse.stages.map(function(stage, stage_index) {
 			return timeslices[stage_index][horse_index].rank;

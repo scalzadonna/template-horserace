@@ -62,12 +62,40 @@ settings:
         - center
       - - fa-align-right
         - right
+
+
+  - Interface
   - property: show_buttons
     name: Show ranks/scores buttons
     type: boolean
   - property: show_replay
     name: Show replay button
     type: boolean
+  - property: filter_control_type
+    name: Filter control type
+    type: string
+    description: Only used when a filter column is specified. "Auto" creates a button group
+      if there is enough space, or a dropdown if there is not.
+    choices:
+      - - Auto
+        - auto-buttons
+      - - Dropdown
+        - dropdown
+      - - Grouped buttons
+        - grouped-buttons
+    show_if: data.horserace.filter
+  - property: filter_width
+    name: Control width
+    description: Width of control if sufficient space is available.
+    type: number
+    min: 50
+    width: half
+    show_if: data.horserace.filter
+  - property: filter_include_all
+    name: Include “All” option
+    type: boolean
+    show_if: data.horserace.filter
+    width: half
   - property: label_ranks
     name: “Ranks” label
     type: string
@@ -83,6 +111,15 @@ settings:
     type: string
     width: quarter
     show_if: show_replay
+  - property: filter_all_label
+    name: “All” label
+    type: string
+    width: quarter
+    show_if:
+      data.horserace.filter: true
+      filter_include_all: true
+
+
   - Footer
   - property: footer_source_name
     name: Source name
@@ -333,6 +370,7 @@ settings:
         - schemePastel1
       - - Pastel 2
         - schemePastel2
+
   - Animation
   - property: stage_duration
     name: Animation duration
@@ -426,3 +464,9 @@ data:
     type: columns
     columns: 'Data::C-L'
     datatype: number
+  - name: Filter
+    description: Hide/show entrants based on the values in this column.
+    dataset: horserace
+    key: filter
+    type: column
+    optional: true

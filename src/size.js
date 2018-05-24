@@ -10,11 +10,12 @@ import { getHeaderHeight } from "./lib/header";
 import { is_mobile } from "./update_graphic";
 import { svg, plot } from "./create_dom";
 
-var w, h, x, y, y_max_score, y_min_score;
+var w, h, x, y, y_max_score, y_min_score, viz_ui;
 
 function updateSizesAndScales(current_position, max_rank) {
 	var window_height = window.innerHeight;
-	var svg_height = window_height - getHeaderHeight() - getFooterHeight();
+	viz_ui = viz_ui || document.getElementById("viz-ui");
+	var svg_height = window_height - getHeaderHeight() - getFooterHeight() - viz_ui.getBoundingClientRect().height;
 
 	svg.attr("width", window.innerWidth).attr("height", svg_height);
 	var end_circle_size = state.end_circle_r + state.end_circle_stroke;

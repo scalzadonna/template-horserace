@@ -37,8 +37,8 @@ function updateColors() {
 	if (state.custom_colors != "") {
 		colors = state.custom_colors.replace(/\s/g, "").split(",");
 	}
-	color = function(d, i) {
-		return colors[i % colors.length];
+	color = function(d) {
+		return colors[d.unfiltered_index % colors.length];
 	};
 }
 

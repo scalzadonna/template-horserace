@@ -20,9 +20,11 @@ svg {
 }
 #viz-ui {
 	position: relative;
-	width: 100%;
-	overflow: hidden;
-	margin-top: 10px;
+	width: calc(~"100% - 20px");
+	padding-top: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+	line-height: 28px;
 	button {
 		background: transparent;
 		color: #333;
@@ -35,7 +37,6 @@ svg {
 		height:24px;
 		line-height: 24px;
 		font-weight: 700;
-		padding-top: 0;
 		padding-bottom: 0;
 		margin: 0;
 		background: #fff;
@@ -47,6 +48,9 @@ svg {
 			color: #fff;
 		}
 	}
+	#horse-controls {
+		display: inline-block;
+	}
 	#replay {
 		border-radius: 3px;
 		line-height: 22px;
@@ -54,6 +58,7 @@ svg {
 		background: transparent;
 		display: inline-block;
 		vertical-align: top;
+		margin-right: 8px;
 		background: #fff;
 		&:hover {
 			background: #eee;
@@ -74,11 +79,12 @@ svg {
 	}
 	#rank-toggle {
 		border-radius: 3px;
-		margin-left: 5px;
+		margin-right: 8px;
 		overflow: hidden;
 		position: relative;
 		display: inline-block;
 		vertical-align: top;
+		line-height: 22px;
 		&:after {
 			position: absolute;
 			content: '';
@@ -90,6 +96,47 @@ svg {
 			border-radius: 3px;
 			border: 1px solid rgba(0,0,0,0.1);
 			pointer-events: none;
+		}
+	}
+	#filter-control {
+		width: 300px;
+		min-width: 50px;
+		line-height: 22px;
+		vertical-align: top;
+		.dropdown, .dropdown .main {
+			margin-bottom: 0px;
+			max-width: 300px!important;
+		}
+		.dropdown .main {
+			height: 24px;
+			border: 1px solid rgba(0,0,0,0.1);
+			font-weight: bold;
+			color: black;
+			* {
+				line-height: 22px!important;
+				font-size: 12px!important;
+			}
+		}
+		.button {
+			font-size: 12px;
+			height: 21px;
+			line-height: 21px;
+			font-weight: 700;
+			padding-bottom: 0;
+			padding-top: 1px;
+			border: 1px solid rgba(0,0,0,0.1);
+			border-right: none;
+			&:last-child {
+				border-right: 1px solid rgba(0,0,0,0.1);
+			}
+			&.selected, &.selected:hover {
+				background: #2886B2;
+				color: #fff;
+			}
+		}
+		.button-container {
+			border: 0;
+			line-height: 22px;
 		}
 	}
 }

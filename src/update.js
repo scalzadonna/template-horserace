@@ -1,5 +1,4 @@
 import state from "./state";
-
 import { updateGraphic } from "./update_graphic";
 
 function update() {

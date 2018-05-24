@@ -4,7 +4,8 @@ import { createFooter } from "@flourish/footer";
 import state from "./state";
 import update from "./update";
 import { replay } from "./play";
-import { createHeader, headerEl } from "./lib/header";
+import { initFilterControls } from "./controls";
+import { createHeader } from "./lib/header";
 
 var svg, plot, g_lines, g_labels, g_start_circles, g_checks, viz_ui;
 
@@ -20,7 +21,7 @@ function clearHighlighting() {
 function createDom() {
 	var body = select("body");
 	createHeader(body.node());
-	viz_ui = select(headerEl).append("div").attr("id", "viz-ui");
+	viz_ui = body.append("div").attr("id", "viz-ui");
 	svg = body.append("svg").on("click", clearHighlighting);
 	createFooter(body.node(), state);
 
@@ -34,8 +35,9 @@ function createDom() {
 	g_lines = plot.append("g").attr("class", "g-lines");
 	g_start_circles = plot.append("g").attr("class", "g-start-circles");
 	g_labels = plot.append("g").attr("class", "g-labels");
-	viz_ui.append("button").attr("id", "replay").text(state.label_replay).on("click", replay);
-	var toggle = viz_ui.append("div").attr("id", "rank-toggle");
+	var horse_controls = viz_ui.append("div").attr("id", "horse-controls");
+	horse_controls.append("button").attr("id", "replay").text(state.label_replay).on("click", replay);
+	var toggle = horse_controls.append("div").attr("id", "rank-toggle");
 	toggle.append("button").attr("id", "ranks").text(state.label_ranks).attr("data-type", "ranks");
 	toggle.append("button").attr("id", "scores").text(state.label_scores).attr("data-type", "scores");
 	toggle.selectAll("button")
@@ -46,6 +48,8 @@ function createDom() {
 		.classed("selected", function() {
 			return select(this).attr("data-type") === (state.value_type == "ranks" ? state.label_ranks : state.label_scores);
 		});
+	viz_ui.append("div").attr("id", "filter-control").style("display", "inline-block");
+	initFilterControls();
 }
 
 export { createDom, svg, plot, g_lines, g_labels, g_start_circles, g_checks, viz_ui };

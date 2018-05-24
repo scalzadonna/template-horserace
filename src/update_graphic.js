@@ -14,6 +14,7 @@ import { getProcessedData } from "./process_data";
 import { updateSizesAndScales, w, h, x, y } from "./size";
 import { updateAxes } from "./axis";
 import { updateColors, color } from "./colors";
+import { updateFilterControls } from "./controls";
 import { play, tieBreak, current_position, updateCurrentPosition } from "./play";
 
 var is_mobile;
@@ -28,7 +29,7 @@ var line = shape.line()
 var labels_update, lines_update;
 
 function updateLines(horses, duration) {
-	var lines = g_lines.selectAll(".line-group").data(horses, function(d) { return d.index; });
+	var lines = g_lines.selectAll(".line-group").data(horses, function(d) { return d.unfiltered_index; });
 	var lines_enter = lines.enter().append("g").attr("class", "horse line-group")
 		.on("mouseenter", mouseover)
 		.on("mouseleave", mouseout)
@@ -70,7 +71,7 @@ function updateLines(horses, duration) {
 }
 
 function updateStartCircles(horses, duration) {
-	var start_circles = g_start_circles.selectAll(".start-circle").data(horses, function(d) { return d.index; });
+	var start_circles = g_start_circles.selectAll(".start-circle").data(horses, function(d) { return d.unfiltered_index; });
 	var start_circles_enter = start_circles.enter().append("circle").attr("class", "horse start-circle")
 		.attr("cy", function(d) { return y(d.start_circle.value); })
 		.attr("cx", function(d) { return x(d.start_circle.i); })
@@ -181,7 +182,7 @@ function updateChecks() {
 }
 
 function updateLabels(horses, duration) {
-	var labels = g_labels.selectAll(".labels-group").data(horses, function(d) { return d.index; });
+	var labels = g_labels.selectAll(".labels-group").data(horses, function(d) { return d.unfiltered_index; });
 
 	var labels_enter = labels.enter().append("g").attr("class", "horse labels-group")
 		.on("mouseenter", mouseover).on("mouseleave", mouseout).on("click", clickHorse)
@@ -212,10 +213,10 @@ function updateLabels(horses, duration) {
 	labels_update
 		.attr("fill", color)
 		.classed("tied", false)
-		.each(function(d, i) {
+		.each(function(d) {
 			var is_selected = false;
-			if (selected_horses.length > 0 && selected_horses.indexOf(String(i)) > -1) is_selected = true;
-			if (selected_horses.length == 0 && state.mouseover_horse != null && i == state.mouseover_horse) is_selected = true;
+			if (selected_horses.length > 0 && selected_horses.indexOf(String(d.unfiltered_index)) > -1) is_selected = true;
+			if (selected_horses.length == 0 && state.mouseover_horse != null && d.unfiltered_index == state.mouseover_horse) is_selected = true;
 			if (is_selected) this.parentNode.appendChild(this);
 		})
 		.transition().duration(duration).attr("transform", transformLabel);
@@ -291,21 +292,21 @@ function updateHorses(data, duration) {
 	updateChecks(data);
 }
 
-function horseOpacity(d, i) {
-	if (selected_horses.length > 0) return (selected_horses.indexOf(String(i)) > -1) ? 1 : 0.1;
-	if (state.mouseover_horse != null) return (i == state.mouseover_horse) ? 1 : 0.1;
+function horseOpacity(d) {
+	if (selected_horses.length > 0) return (selected_horses.indexOf(String(d.unfiltered_index)) > -1) ? 1 : 0.1;
+	if (state.mouseover_horse != null) return (d.unfiltered_index == state.mouseover_horse) ? 1 : 0.1;
 
 	if (state.hide_labels) {
 		if (select(this).classed("name-bg") || select(this).classed("name-fg")) {
-			return i == state.mouseover_horse ? 1 : 0;
+			return d.unfiltered_index == state.mouseover_horse ? 1 : 0;
 		}
 	}
 	return 1;
 }
 
 function mouseover(d, i) {
-	if (i === state.mouseover_horse) return;
-	state.mouseover_horse = i;
+	if (d.unfiltered_index === state.mouseover_horse) return;
+	state.mouseover_horse = d.unfiltered_index;
 
 	if (selected_horses.length == 0) {
 		labels_update.select(".end.circle").attr("opacity", horseOpacity);
@@ -349,25 +350,25 @@ function mouseout() {
 	}
 }
 
-function clickHorse(d, i) {
+function clickHorse(d) {
 	state.mouseover_horse = null;
 	event.stopPropagation();
 	if (state.selected_horse == null) {
-		selected_horses = [String(i)];
+		selected_horses = [String(d.unfiltered_index)];
 	}
 	else {
-		var is_selected = selected_horses.indexOf(String(i)) > -1;
+		var is_selected = selected_horses.indexOf(String(d.unfiltered_index)) > -1;
 
 		if (is_selected) {
 			if (selected_horses.length > 1) {
-				selected_horses.splice(selected_horses.indexOf(String(i)), 1);
+				selected_horses.splice(selected_horses.indexOf(String(d.unfiltered_index)), 1);
 			}
 			else {
 				selected_horses = [];
 			}
 		}
 		else {
-			selected_horses.push(String(i));
+			selected_horses.push(String(d.unfiltered_index));
 		}
 	}
 	state.selected_horse = selected_horses.join();
@@ -403,9 +404,10 @@ function updateLineStyle() {
 
 function updateGraphic(duration) {
 	is_mobile = window.innerWidth <= 420;
+	updateUI();
+	updateFilterControls();
 	var horses = getProcessedData();
 	selected_horses = state.selected_horse ? state.selected_horse.split(",") : [];
-	updateUI();
 	updateSizesAndScales(current_position, horses.max_rank);
 	updateLineStyle();
 	updateColors();
