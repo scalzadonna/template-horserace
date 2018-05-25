@@ -1,7 +1,15 @@
-#3.4.1
+# 3.4.2
+* Add filter binding/control
+
+# 3.4.1
 * Use standard breakpoints
 
-#3.1.2
+# 3.4.0
+
+* Add footer
+* Improved margin logic
+
+# 3.1.2
 
 * Add replay button
 * Improved UI buttons
@@ -10,23 +18,18 @@
 * Added option to round y axis values
 * Updated colour scheme
 
-#3.0.1
-
-* Add datatypes for bindings
-* Frontload selected horses
-
-#3.0.2
-
-* Tweak autoheight config
-* Remove default title/subtitle
-
-#3.1.0
+# 3.1.0
 
 * Allow user to change button labels
 * “Scoring type” settings as buttons
 * Set body `overflow: hidden`
 
-#3.4.0
+# 3.0.2
 
-* Add footer
-* Improved margin logic
+* Tweak autoheight config
+* Remove default title/subtitle
+
+# 3.0.1
+
+* Add datatypes for bindings
+* Frontload selected horses
